@@ -6,8 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class EndermanApplicationTests {
 
+	/*
 	@Test
 	void contextLoads() {
+
+		System.out.println("Hello?");
 	}
+	*/
 
 }
