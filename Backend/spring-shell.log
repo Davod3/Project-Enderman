@@ -6,3 +6,7 @@
 1689254953645:asd
 1689347426742:help
 1689348623013:create-server
+1689349993484:create-server --arg ATM-9 --arg 25566
+1689350039374:create-server --arg ATM9
+1689350050366:create-server ATM9 25566
+1689350420905:create-server ATM12 25579
