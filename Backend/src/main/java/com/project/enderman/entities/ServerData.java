@@ -11,7 +11,7 @@ import org.springframework.lang.NonNull;
 @Entity
 public class ServerData {
 
-    private static final String SERVER_FOLDER = "/servers";
+    private static final String SERVER_FOLDER = "servers";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -8,6 +8,8 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.io.IOException;
+
 @ShellComponent
 public class Commands {
 
@@ -20,6 +22,23 @@ public class Commands {
         CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo);
 
         return createSvHandler.createServer(name, port);
+    }
+
+    @ShellMethod(key="download-server")
+    public boolean downloadServer(@ShellOption String url) {
+
+        CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo);
+        boolean result = false;
+
+        try {
+            result = createSvHandler.downloadServer(url, (long) 1);
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 
 }

@@ -10,3 +10,13 @@
 1689350039374:create-server --arg ATM9
 1689350050366:create-server ATM9 25566
 1689350420905:create-server ATM12 25579
+1689358546027:help
+1689358580477:download-server
+1689358599079:download-server https://www.baeldung.com/java-http-request
+1689358857296:download-server https://www.google.com/
+1689358901563:download-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
+1689363541339:create-server ATM9 25566
+1689363547877:download-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
+1689367517843:create-server ATM9 25566
+1689367526985:downlaod-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
+1689367534925:download-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
