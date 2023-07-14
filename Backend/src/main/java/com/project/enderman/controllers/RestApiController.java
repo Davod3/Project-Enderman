@@ -12,4 +12,9 @@ public class RestApiController {
     public String getServerList() {
         return "Teste";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "Loggin in...";
+    }
 }

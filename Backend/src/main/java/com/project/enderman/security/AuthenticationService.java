@@ -9,7 +9,7 @@ public class AuthenticationService {
 
     private static final String AUTH_TOKEN_HEADER_NAME = "X-API-KEY";
 
-    private static final String AUTH_TOKEN = "David"; //Change to retrieve from DB later
+    private static final String AUTH_TOKEN = "david"; //Change to retrieve from DB later
 
     public static Authentication getAuthentication(HttpServletRequest request) {
 
