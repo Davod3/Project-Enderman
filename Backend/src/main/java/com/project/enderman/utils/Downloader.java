@@ -61,7 +61,7 @@ public class Downloader {
             FileWriter writer = new FileWriter(eulaPath);
             writer.write("eula=true");
             writer.close();
-            
+
             return true;
 
         } else {

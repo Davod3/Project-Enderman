@@ -34,3 +34,13 @@
 1689416825763:file-forward servers/ATM91
 1689416847441:file-forward servers/ATM91/Server-Files-0.0.34
 1689416898615:file-forward servers/ATM91/Server-Files-0.0.34/startserver.sh
+1689434344842:help
+1689434358343:create-server ATM9 25567
+1689434376709:view-server-files 1
+1689434386836:start-server 1
+1689434535052:create-server ATM9 25567
+1689434544042:start-server 1
+1689434642185:create-server yeet 2222
+1689434647240:start-server 1
+1689435714999:create-server david 1234
+1689435718378:start-server 1

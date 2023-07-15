@@ -25,6 +25,8 @@ public class ServerData {
 
     private String startScript;
 
+    private String screenID;
+
     public ServerData(String name, String port) {
         this.name = name;
         this.port = port;
@@ -32,6 +34,14 @@ public class ServerData {
 
     public ServerData(){
         //Empty on purpose
+    }
+
+    public String getScreenID() {
+        return screenID;
+    }
+
+    public void setScreenID(String screenID) {
+        this.screenID = screenID;
     }
 
     public void setName(String name) {

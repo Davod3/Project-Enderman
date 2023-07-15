@@ -4,6 +4,7 @@ import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
 import com.project.enderman.handlers.CreateServerHandler;
 import com.project.enderman.handlers.NavigateHandler;
+import com.project.enderman.handlers.RunServerHandler;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -102,6 +103,36 @@ public class Commands {
         }
 
         return false;
+
+    }
+
+    @ShellMethod(key="start-server")
+    public boolean startServer(@ShellOption long id) {
+
+        RunServerHandler runServer = new RunServerHandler(serverRepo);
+
+        try {
+
+            return runServer.start(id);
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+
+        } catch (InterruptedException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+    @ShellMethod(key="select-script")
+    public boolean selectScript(@ShellOption long id, @ShellOption String path) {
+
+        CreateServerHandler createServer = new CreateServerHandler(serverRepo);
+
+        return createServer.selectStartScript(path, id);
 
     }
 

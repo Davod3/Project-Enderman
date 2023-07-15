@@ -11,11 +11,5 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class EndermanApplicationTests {
 
-    @Autowired
-    ServerDataRepository serverRepo;
-
-	@Test
-    void test_server_creation() {
-    }
 
 }
