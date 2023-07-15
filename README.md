@@ -7,9 +7,9 @@ Consists of a web application that allows the easier deployment and maintenance 
 
 ## Supports the creation of any kind of minecraft servers
 	
-	-User inputs the server download url
-	-Server is downloaded
-	-User creates or selects the start script
+	-User inputs the server download url (done)
+	-Server is downloaded (done)
+	-User creates or selects the start script (selection done)
 
 ## Supports simple server start/stop procedure
 

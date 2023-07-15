@@ -63,6 +63,6 @@ public class ServerData {
     }
 
     public String getStartScript() {
-        return SERVER_FOLDER + "/" + this.startScript;
+        return this.startScript;
     }
 }

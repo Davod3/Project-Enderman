@@ -3,15 +3,8 @@ package com.project.enderman.handlers;
 import com.project.enderman.entities.ServerData;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
 
 public class CreateServerHandler {
@@ -33,7 +26,6 @@ public class CreateServerHandler {
     public boolean downloadServer(String url, long serverID) throws IOException {
 
         //https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
-        //https://www.baeldung.com/java-http-request
 
         Optional<ServerData> maybeSv = serverRepo.findById(serverID);
 
@@ -48,7 +40,21 @@ public class CreateServerHandler {
         return false;
     }
 
-    public boolean selectStartScript(String filePath, String serverID) {
+    public boolean selectStartScript(String filePath, long serverID) {
+
+        Optional<ServerData> maybeSv = serverRepo.findById(serverID);
+
+        if(maybeSv.isPresent()){
+
+            ServerData sv = maybeSv.get();
+
+            sv.setStartScript(filePath);
+
+            serverRepo.save(sv);
+
+            return true;
+
+        }
 
         return false;
     }
