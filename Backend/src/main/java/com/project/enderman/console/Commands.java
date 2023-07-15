@@ -1,7 +1,9 @@
 package com.project.enderman.console;
 
+import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
 import com.project.enderman.handlers.CreateServerHandler;
+import com.project.enderman.handlers.NavigateHandler;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -9,6 +11,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.io.IOException;
+import java.util.List;
 
 @ShellComponent
 public class Commands {
@@ -39,6 +42,67 @@ public class Commands {
         }
 
         return result;
+    }
+
+    @ShellMethod(key="view-server-files")
+    public boolean viewServerFiles(@ShellOption Long serverid) {
+
+        NavigateHandler nav = new NavigateHandler(serverRepo);
+
+        List<FileDTO> files = nav.listFiles(serverid);
+
+        if(files != null) {
+
+            for(FileDTO f : files) {
+                System.out.println(f.getName() + "--" + f.getPath());
+            }
+
+            return true;
+        }
+
+        return false;
+
+    }
+
+    @ShellMethod(key="file-forward")
+    public boolean fileForward(@ShellOption String path) {
+
+        NavigateHandler nav = new NavigateHandler(serverRepo);
+
+        List<FileDTO> files = nav.goForward(path);
+
+        if(files != null) {
+
+            for(FileDTO f : files) {
+                System.out.println(f.getName() + "--" + f.getPath());
+            }
+
+            return true;
+        }
+
+        return false;
+
+
+    }
+
+    @ShellMethod(key="file-back")
+    public boolean fileBack(@ShellOption String path) {
+
+        NavigateHandler nav = new NavigateHandler(serverRepo);
+
+        List<FileDTO> files = nav.goBackward(path);
+
+        if(files != null) {
+
+            for(FileDTO f : files) {
+                System.out.println(f.getName() + "--" + f.getPath());
+            }
+
+            return true;
+        }
+
+        return false;
+
     }
 
 }

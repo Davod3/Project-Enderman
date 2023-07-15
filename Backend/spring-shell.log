@@ -20,3 +20,17 @@
 1689367517843:create-server ATM9 25566
 1689367526985:downlaod-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
 1689367534925:download-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
+1689415352807:help
+1689415370395:create-server ATM9 25566
+1689415385369:view-server-files 1
+1689415905403:create-server ATM9 25566
+1689415922473:view-server-files 1
+1689415964727:file-forward servers\\ATM91\\Server-Files-0.0.34
+1689416004939:file-forward servers/ATM91/Server-Files-0.0.34
+1689416025028:file-backward servers/ATM91/Server-Files-0.0.34
+1689416035554:file-back servers/ATM91/Server-Files-0.0.34
+1689416732167:file-back servers/
+1689416752462:file-back servers/ATM91
+1689416825763:file-forward servers/ATM91
+1689416847441:file-forward servers/ATM91/Server-Files-0.0.34
+1689416898615:file-forward servers/ATM91/Server-Files-0.0.34/startserver.sh
