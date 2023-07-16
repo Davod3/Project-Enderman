@@ -4,9 +4,7 @@ import com.project.enderman.entities.ServerData;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.apache.catalina.Server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Stack;
@@ -34,6 +32,8 @@ public class RunServerHandler {
 
             // && sv.getStartScript() != null
             if(!isRunning(serverID)  && sv.getStartScript() != null) {
+
+                acceptEula(sv.getStartScript());
 
                 String id = "Minecraft-" + sv.getPort() + "-" + sv.getName();
 
@@ -126,6 +126,26 @@ public class RunServerHandler {
         p.destroy();
 
         return lines;
+    }
+
+    private void acceptEula(String scriptPath) throws IOException {
+
+        //Load script file
+        File script = new File(scriptPath);
+
+        //Get parent path of script
+        String destPath = script.getParentFile().getPath();
+
+        //Set eula at script's parent folder (must be root folder)
+        String eulaPath = destPath + "/eula.txt";
+
+        File eula = new File(eulaPath);
+        eula.createNewFile();
+
+        FileWriter writer = new FileWriter(eulaPath);
+        writer.write("eula=true");
+        writer.close();
+
     }
 
 }

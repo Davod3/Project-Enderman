@@ -55,7 +55,7 @@ public class Commands {
         if(files != null) {
 
             for(FileDTO f : files) {
-                System.out.println(f.getName() + "--" + f.getPath());
+                System.out.println(f.getName() + " -- " + f.getPath() + " -- " + f.isFolder());
             }
 
             return true;
@@ -75,7 +75,7 @@ public class Commands {
         if(files != null) {
 
             for(FileDTO f : files) {
-                System.out.println(f.getName() + "--" + f.getPath());
+                System.out.println(f.getName() + " -- " + f.getPath() + " -- " + f.isFolder());
             }
 
             return true;
@@ -96,7 +96,7 @@ public class Commands {
         if(files != null) {
 
             for(FileDTO f : files) {
-                System.out.println(f.getName() + "--" + f.getPath());
+                System.out.println(f.getName() + " -- " + f.getPath() + " -- " + f.isFolder());
             }
 
             return true;
@@ -107,13 +107,13 @@ public class Commands {
     }
 
     @ShellMethod(key="start-server")
-    public boolean startServer(@ShellOption long id) {
+    public boolean startServer(@ShellOption long serverID) {
 
         RunServerHandler runServer = new RunServerHandler(serverRepo);
 
         try {
 
-            return runServer.start(id);
+            return runServer.start(serverID);
 
         } catch (IOException e) {
 

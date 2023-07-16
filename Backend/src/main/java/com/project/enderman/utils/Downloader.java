@@ -51,17 +51,6 @@ public class Downloader {
                 zipEntry = zis.getNextEntry();
             }
 
-            //Accept eula
-
-            String eulaPath = destPath + "/eula.txt";
-
-            File eula = new File(eulaPath);
-            eula.createNewFile();
-
-            FileWriter writer = new FileWriter(eulaPath);
-            writer.write("eula=true");
-            writer.close();
-
             return true;
 
         } else {
