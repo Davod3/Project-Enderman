@@ -11,11 +11,11 @@ Consists of a web application that allows the easier deployment and maintenance 
 	-Server is downloaded (done)
 	-User creates or selects the start script (selection done)
 
-## Supports simple server start/stop procedure
+## Supports simple server start/stop procedure (done)
 
-	-User is presented with all servers, selecting one
-	-User clicks in stop button, server stops
-	-User clicks in start button, server starts
+	-User is presented with all servers, selecting one (done)
+	-User clicks in stop button, server stops (done)
+	-User clicks in start button, server starts (done)
 
 ## Supports simple server backup procedure
 
@@ -29,7 +29,7 @@ Consists of a web application that allows the easier deployment and maintenance 
 	-User edits what he wants, clicks save
 	-Server is restarted with changes applied
 
-## Must allow for manual creation of servers when necessary
+## Must allow for manual creation of servers when necessary (done)
 	
-	-User is shown a list of possible server folders, selecting one
-	-User creates or selects the start script 
+	-User is inserts the name of the folder the server is located in (done)
+	-User creates or selects the start script (done)
