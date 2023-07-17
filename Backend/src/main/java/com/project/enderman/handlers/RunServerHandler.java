@@ -20,14 +20,11 @@ public class RunServerHandler {
 
     public boolean start(long serverID) throws IOException, InterruptedException {
 
-        //list screens -> ps x | grep SCREEN | grep -v grep
-
         Optional<ServerData> maybeSv = this.serverRepo.findById(serverID);
 
         if(maybeSv.isPresent()) {
 
             //Retrieve server
-
             ServerData sv = maybeSv.get();
 
             // && sv.getStartScript() != null
@@ -35,7 +32,7 @@ public class RunServerHandler {
 
                 String id = "Minecraft-" + sv.getPort() + "-" + sv.getName();
 
-                String command = "screen -dmS Minecraft-" + id + " bash " + sv.getStartScript();
+                String command = "screen -dmS " + id + " bash " + sv.getStartScript();
 
                 Stack<String> lines = executeCommand(command);
 
@@ -54,7 +51,7 @@ public class RunServerHandler {
                     return false;
                 }
             } else {
-                //
+
                 System.out.println("Server is already running");
                 return false;
             }
@@ -65,8 +62,43 @@ public class RunServerHandler {
         return false;
     }
 
-    public boolean stop(long serverID){
-       return false;
+    public boolean stop(long serverID) throws IOException, InterruptedException {
+
+        Optional<ServerData> maybeSv = this.serverRepo.findById(serverID);
+
+        if(maybeSv.isPresent()) {
+
+            //Retrieve server
+            ServerData sv = maybeSv.get();
+
+            if(isRunning(serverID)) {
+
+                String command = "screen -X -S " + sv.getScreenID() + " quit";
+                Stack<String> lines = executeCommand(command);
+
+                if(lines.size() == 0) {
+
+                    System.out.println("Server stopped successfully");
+                    return true;
+                } else {
+                    //Something bad happened
+                    for(String s : lines) {
+                        System.out.println(s);
+                    }
+                    return false;
+                }
+
+
+            } else {
+
+                System.out.println("Server is already stopped!");
+                return false;
+            }
+
+        }
+
+        System.out.println("Server does not exist");
+        return false;
     }
 
     public boolean isRunning(long serverID) throws IOException, InterruptedException {
@@ -75,30 +107,22 @@ public class RunServerHandler {
 
         if(maybeSv.isPresent()) {
 
+            //THINGS WILL BREAK IF OUTPUT FORMAT OF 'ps x' COMMAND CHANGES!!!!!!!!
             Stack<String> lines = executeCommand(LIST_SESSIONS);
             ServerData sv = maybeSv.get();
+            String id = sv.getScreenID();
 
-            for(String s : lines) {
+            if(id != null) {
 
-                if(s.contains("SCREEN")){
+                for(String s : lines) {
 
-                    String[] splitLine = s.split(" ");
-
-                    System.out.println(splitLine[20]);
-
-                    String id = sv.getScreenID();
-
-                    if(id != null && splitLine[20].contains(id)){
-
+                    if(s.contains(id)){
                         System.out.println("Server already has a session running");
-
                         return true;
                     }
                 }
             }
-
             System.out.println("Server is not running");
-
             return false;
 
         }

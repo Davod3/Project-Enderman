@@ -140,4 +140,25 @@ public class Commands {
 
     }
 
+    @ShellMethod(key="stop-server")
+    public boolean stopServer(@ShellOption long serverID) {
+
+        RunServerHandler runServer = new RunServerHandler(serverRepo);
+
+        try {
+
+            return runServer.stop(serverID);
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+
+        } catch (InterruptedException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
 }
