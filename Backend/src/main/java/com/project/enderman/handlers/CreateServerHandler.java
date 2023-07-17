@@ -71,11 +71,16 @@ public class CreateServerHandler {
         //Set server.properties at parent folder (must be root folder)
         String propertiesPath = sv.getMainFolder() + "/server.properties";
         File serverProperties = new File(propertiesPath);
-        serverProperties.createNewFile();
 
-        FileWriter writer = new FileWriter(propertiesPath);
-        writer.write("server-port=" + port);
-        writer.close();
+        if(!serverProperties.exists()) {
+
+            serverProperties.createNewFile();
+
+            FileWriter writer = new FileWriter(propertiesPath);
+            writer.write("server-port=" + port);
+            writer.close();
+
+        }
 
     }
 
@@ -84,11 +89,16 @@ public class CreateServerHandler {
         //Set eula at script's parent folder (must be root folder)
         String eulaPath = sv.getMainFolder() + "/eula.txt";
         File eula = new File(eulaPath);
-        eula.createNewFile();
 
-        FileWriter writer = new FileWriter(eulaPath);
-        writer.write("eula=true");
-        writer.close();
+        if(!eula.exists()){
+
+            eula.createNewFile();
+
+            FileWriter writer = new FileWriter(eulaPath);
+            writer.write("eula=true");
+            writer.close();
+
+        }
 
     }
 

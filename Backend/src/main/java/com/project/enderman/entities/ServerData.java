@@ -1,9 +1,6 @@
 package com.project.enderman.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
 
@@ -18,6 +15,7 @@ public class ServerData {
     private long id;
 
     @NonNull
+    @Column(unique = true)
     private String name;
 
     @NonNull
@@ -63,7 +61,7 @@ public class ServerData {
     }
 
     public String getFolder() {
-        return SERVER_FOLDER + "/" + this.name + this.id;
+        return SERVER_FOLDER + "/" + this.name;
     }
 
     public String getName() {
