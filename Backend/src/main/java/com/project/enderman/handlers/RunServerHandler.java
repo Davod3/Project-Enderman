@@ -33,8 +33,6 @@ public class RunServerHandler {
             // && sv.getStartScript() != null
             if(!isRunning(serverID)  && sv.getStartScript() != null) {
 
-                acceptEula(sv.getStartScript());
-
                 String id = "Minecraft-" + sv.getPort() + "-" + sv.getName();
 
                 String command = "screen -dmS Minecraft-" + id + " bash " + sv.getStartScript();
@@ -126,26 +124,6 @@ public class RunServerHandler {
         p.destroy();
 
         return lines;
-    }
-
-    private void acceptEula(String scriptPath) throws IOException {
-
-        //Load script file
-        File script = new File(scriptPath);
-
-        //Get parent path of script
-        String destPath = script.getParentFile().getPath();
-
-        //Set eula at script's parent folder (must be root folder)
-        String eulaPath = destPath + "/eula.txt";
-
-        File eula = new File(eulaPath);
-        eula.createNewFile();
-
-        FileWriter writer = new FileWriter(eulaPath);
-        writer.write("eula=true");
-        writer.close();
-
     }
 
 }

@@ -23,7 +23,7 @@ public class NavigateHandler {
 
         if(maybeSv.isPresent()) {
 
-            File root = new File(maybeSv.get().getRootFolder());
+            File root = new File(maybeSv.get().getFolder());
 
             Optional<List<FileDTO>> serverFiles = Navigator.goInto(root);
 

@@ -132,7 +132,11 @@ public class Commands {
 
         CreateServerHandler createServer = new CreateServerHandler(serverRepo);
 
-        return createServer.selectStartScript(path, id);
+        try {
+            return createServer.selectStartScript(path, id);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

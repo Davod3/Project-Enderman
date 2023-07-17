@@ -44,3 +44,13 @@
 1689434647240:start-server 1
 1689435714999:create-server david 1234
 1689435718378:start-server 1
+1689592033910:clear
+1689592036360:help
+1689592053684:create-server ATM-9 12345
+1689592071508:download-server https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
+1689592320311:help
+1689592326612:view-server-files 1
+1689592343434:file-forward servers\\ATM-91\\Server-Files-0.0.34
+1689592362413:file-forward servers/ATM-91/Server-Files-0.0.34
+1689592373531:help
+1689592411439:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.bat

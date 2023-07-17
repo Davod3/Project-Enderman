@@ -27,6 +27,8 @@ public class ServerData {
 
     private String screenID;
 
+    private String mainFolder;
+
     public ServerData(String name, String port) {
         this.name = name;
         this.port = port;
@@ -34,6 +36,14 @@ public class ServerData {
 
     public ServerData(){
         //Empty on purpose
+    }
+
+    public String getMainFolder() {
+        return mainFolder;
+    }
+
+    public void setMainFolder(String mainFolder) {
+        this.mainFolder = mainFolder;
     }
 
     public String getScreenID() {
@@ -52,7 +62,7 @@ public class ServerData {
         this.port = port;
     }
 
-    public String getRootFolder() {
+    public String getFolder() {
         return SERVER_FOLDER + "/" + this.name + this.id;
     }
 

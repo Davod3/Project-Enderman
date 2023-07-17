@@ -4,6 +4,8 @@ import com.project.enderman.entities.ServerData;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -31,7 +33,7 @@ public class CreateServerHandler {
 
         if(maybeSv.isPresent()){
 
-            String destinationFolder = maybeSv.get().getRootFolder();
+            String destinationFolder = maybeSv.get().getFolder();
 
             return Downloader.download(url, destinationFolder);
 
@@ -40,23 +42,54 @@ public class CreateServerHandler {
         return false;
     }
 
-    public boolean selectStartScript(String filePath, long serverID) {
+    public boolean selectStartScript(String filePath, long serverID) throws IOException {
 
         Optional<ServerData> maybeSv = serverRepo.findById(serverID);
+        File script = new File(filePath);
 
-        if(maybeSv.isPresent()){
+        if(maybeSv.isPresent() && script.exists()){
 
             ServerData sv = maybeSv.get();
-
             sv.setStartScript(filePath);
+            sv.setMainFolder(script.getParentFile().getPath());
 
             serverRepo.save(sv);
+
+            acceptEula(sv);
+            setPort(sv, sv.getPort());
 
             return true;
 
         }
 
+        System.out.println("File or server does not exist!");
         return false;
+    }
+
+    private void setPort(ServerData sv, String port) throws IOException {
+
+        //Set server.properties at parent folder (must be root folder)
+        String propertiesPath = sv.getMainFolder() + "/server.properties";
+        File serverProperties = new File(propertiesPath);
+        serverProperties.createNewFile();
+
+        FileWriter writer = new FileWriter(propertiesPath);
+        writer.write("server-port=" + port);
+        writer.close();
+
+    }
+
+    private void acceptEula(ServerData sv) throws IOException {
+
+        //Set eula at script's parent folder (must be root folder)
+        String eulaPath = sv.getMainFolder() + "/eula.txt";
+        File eula = new File(eulaPath);
+        eula.createNewFile();
+
+        FileWriter writer = new FileWriter(eulaPath);
+        writer.write("eula=true");
+        writer.close();
+
     }
 
 }
