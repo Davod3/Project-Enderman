@@ -6,7 +6,6 @@ import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Compression;
 
-import javax.swing.text.html.Option;
 import java.io.*;
 import java.util.Date;
 import java.util.Optional;
@@ -59,8 +58,6 @@ public class BackupServerHandler {
                 }
 
             } else {
-
-                System.out.println("Persisting backup...");
 
                 //No backup is present, create it
                 backup = new ServerBackup();

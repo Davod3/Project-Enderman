@@ -2,10 +2,7 @@ package com.project.enderman.console;
 
 import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
-import com.project.enderman.handlers.BackupServerHandler;
-import com.project.enderman.handlers.CreateServerHandler;
-import com.project.enderman.handlers.NavigateHandler;
-import com.project.enderman.handlers.RunServerHandler;
+import com.project.enderman.handlers.*;
 import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,10 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @ShellComponent
 public class Commands {
@@ -198,6 +198,49 @@ public class Commands {
 
         try {
             return backupServerHandler.restoreBackup(serverID);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @ShellMethod(key="server-properties")
+    public boolean serverProperties(@ShellOption long serverID){
+
+        EditServerHandler editServerHandler = new EditServerHandler(serverRepo);
+
+        try {
+            Set<Map.Entry<Object, Object>> properties = editServerHandler.getProperties(serverID);
+
+            if(properties != null) {
+
+                for(Map.Entry entry : properties) {
+
+                    System.out.println(entry.getKey() + "---" + entry.getValue());
+
+                }
+            }
+
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @ShellMethod(key="edit-server")
+    public boolean editServer(@ShellOption long serverID){
+
+        EditServerHandler editServerHandler = new EditServerHandler(serverRepo);
+
+        try {
+            Map<String, String> properties = new HashMap<>();
+
+            properties.put("server-port", "12345");
+
+            return editServerHandler.setProperties(properties, serverID);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

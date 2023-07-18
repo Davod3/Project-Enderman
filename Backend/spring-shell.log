@@ -115,3 +115,31 @@
 1689690184754:delete-backup 1
 1689690193499:backup-server 1
 1689690256930:restore-backup 1
+1689715965991:help
+1689715976946:create-server ATM-91 12345
+1689716033962:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.sh
+1689716091143:server-propeties
+1689716102922:server-properties 1
+1689716168162:create-server ATM-91 123456
+1689716172910:help
+1689716182986:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.sh
+1689716194497:server-properties
+1689716203174:server-properties 1
+1689716296709:create-server ATM-91 123
+1689716300248:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.sh
+1689716306399:server-properties
+1689716311214:server-properties 1
+1689716456598:create-server ATM-91 1
+1689716459594:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.sh
+1689716466327:server-properties
+1689716471481:server-properties 1
+1689716644710:create-server ATM-91 1234
+1689716749644:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.sh
+1689716757820:server-properties 1
+1689716809238:edit-server 1
+1689716816384:server-properties 1
+1689717108481:create-server ATM-91 25566
+1689717143999:select-script 1 servers/ATM-91/Server-Files-0.0.34/startserver.sh
+1689717187905:server-properties 1
+1689717207810:edit-server 1
+1689717214707:server-properties 1
