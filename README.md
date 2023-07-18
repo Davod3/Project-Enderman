@@ -22,12 +22,12 @@ Consists of a web application that allows the easier deployment and maintenance 
 	-User is presented with all servers, selecting one (done)
 	-User clicks in backup button, backup is made. Old backup is deleted. (done)
 
-## Supports simple server.properties editing procedure
+## Supports simple server.properties editing procedure (done)
 
-	-User is presented with all servers, selecting one
-	-User clicks in edit button, being shown all .properties fields
-	-User edits what he wants, clicks save
-	-Server is restarted with changes applied
+	-User is presented with all servers, selecting one (done)
+	-User clicks in edit button, being shown all .properties fields (done)
+	-User edits what he wants, clicks save (done)
+	-Server is restarted with changes applied (done)
 
 ## Must allow for manual creation of servers when necessary (done)
 	
