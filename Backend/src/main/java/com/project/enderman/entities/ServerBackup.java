@@ -8,12 +8,8 @@ import java.util.Date;
 public class ServerBackup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(referencedColumnName = "id")
-    private ServerData server;
 
     private String path;
 
@@ -27,15 +23,6 @@ public class ServerBackup {
     public void setId(long id) {
         this.id = id;
     }
-
-    public ServerData getServer() {
-        return server;
-    }
-
-    public void setServer(ServerData server) {
-        this.server = server;
-    }
-
 
     public Date getBackupDate() {
         return backupDate;

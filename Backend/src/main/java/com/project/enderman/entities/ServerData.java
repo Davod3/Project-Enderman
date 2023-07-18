@@ -11,7 +11,7 @@ public class ServerData {
     private static final String SERVER_FOLDER = "servers";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @NonNull
@@ -20,6 +20,9 @@ public class ServerData {
 
     @NonNull
     private String port;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ServerBackup backup;
 
     private String startScript;
 
@@ -34,6 +37,21 @@ public class ServerData {
 
     public ServerData(){
         //Empty on purpose
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ServerBackup getBackup() {
+        return backup;
+    }
+
+    public void setBackup(ServerBackup backup) {
+        this.backup = backup;
     }
 
     public String getMainFolder() {

@@ -7,11 +7,10 @@ import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Compression;
 
 import javax.swing.text.html.Option;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Date;
 import java.util.Optional;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class BackupServerHandler {
@@ -36,12 +35,11 @@ public class BackupServerHandler {
 
             ServerData sv = maybeSV.get();
 
-            Optional<ServerBackup> maybeBackup = this.backupRepo.findById(sv.getID());
+            ServerBackup backup = sv.getBackup();
 
-            if(maybeBackup.isPresent()) {
+            if(backup != null) {
 
-                //Backup already exists, fetch it
-                ServerBackup backup = maybeBackup.get();
+                //Backup already exists
 
                 //Delete old backup
                 if(deleteFolder(new File(backup.getPath()))) {
@@ -50,7 +48,7 @@ public class BackupServerHandler {
                 backup.setBackupDate(new Date());
                 backup.setPath(pathToBackup);
 
-                this.backupRepo.save(backup);
+                this.serverRepo.save(sv);
 
                 return true;
 
@@ -62,14 +60,16 @@ public class BackupServerHandler {
 
             } else {
 
+                System.out.println("Persisting backup...");
+
                 //No backup is present, create it
-                ServerBackup backup = new ServerBackup();
-                backup.setServer(sv);
+                backup = new ServerBackup();
+                sv.setBackup(backup);
                 String pathToBackup = backup(sv);
                 backup.setBackupDate(new Date());
                 backup.setPath(pathToBackup);
 
-                this.backupRepo.save(backup);
+                this.serverRepo.save(sv);
 
                 return true;
             }
@@ -82,20 +82,63 @@ public class BackupServerHandler {
 
     public boolean removeBackup(long serverID) {
 
-        Optional<ServerBackup> maybeBackup = backupRepo.findById(serverID);
+        Optional<ServerData> maybeServer = serverRepo.findById(serverID);
 
-        if(maybeBackup.isPresent()) {
+        if(maybeServer.isPresent()) {
 
-            ServerBackup backup = maybeBackup.get();
+            ServerData sv = maybeServer.get();
+            ServerBackup backup = sv.getBackup();
 
-            deleteFolder(new File(backup.getPath()));
+            if(backup != null) {
 
-            backupRepo.delete(backup);
+                sv.setBackup(null);
+                serverRepo.save(sv);
 
-            return true;
+                deleteFolder(new File(backup.getPath()));
+                backupRepo.delete(backup);
+
+                return true;
+            }
+
+            System.out.println("No backup exists!");
+            return false;
+
         }
 
-        System.out.println("No backup exists!");
+        System.out.println("Server does not exist!");
+        return false;
+    }
+
+    public boolean restoreBackup(long serverID) throws IOException {
+
+        Optional<ServerData> maybeServer = serverRepo.findById(serverID);
+
+        if(maybeServer.isPresent()) {
+
+            ServerData sv = maybeServer.get();
+            ServerBackup backup = sv.getBackup();
+
+            if(backup != null) {
+
+                //Delete original server
+                deleteFolder(new File(sv.getFolder()));
+
+                //Restore backup
+                ZipInputStream zis = new ZipInputStream(new FileInputStream(backup.getPath()));
+                Compression.unzip(new File("servers"), zis);
+                zis.close();
+
+                return true;
+
+            } else {
+
+                System.out.println("No backup!");
+                return false;
+            }
+
+        }
+
+        System.out.println("Server does not exist!");
         return false;
     }
 
@@ -129,7 +172,5 @@ public class BackupServerHandler {
 
         return folder.delete();
     }
-
-
 
 }

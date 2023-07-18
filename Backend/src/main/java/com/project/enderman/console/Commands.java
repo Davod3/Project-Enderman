@@ -191,4 +191,17 @@ public class Commands {
 
     }
 
+    @ShellMethod(key="restore-backup")
+    public boolean restoreBackup(@ShellOption long serverID){
+
+        BackupServerHandler backupServerHandler = new BackupServerHandler(serverRepo, backupRepo);
+
+        try {
+            return backupServerHandler.restoreBackup(serverID);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
