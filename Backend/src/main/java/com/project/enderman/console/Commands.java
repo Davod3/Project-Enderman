@@ -2,9 +2,11 @@ package com.project.enderman.console;
 
 import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.handlers.BackupServerHandler;
 import com.project.enderman.handlers.CreateServerHandler;
 import com.project.enderman.handlers.NavigateHandler;
 import com.project.enderman.handlers.RunServerHandler;
+import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -19,6 +21,9 @@ public class Commands {
 
     @Autowired
     ServerDataRepository serverRepo;
+
+    @Autowired
+    ServerBackupRepository backupRepo;
 
     @ShellMethod(key="create-server")
     public long createServer(@ShellOption String name, @ShellOption String port) {
@@ -158,6 +163,31 @@ public class Commands {
             throw new RuntimeException(e);
 
         }
+
+    }
+
+    @ShellMethod(key="backup-server")
+    public boolean backupServer(@ShellOption long serverID){
+
+        BackupServerHandler backupHandler = new BackupServerHandler(serverRepo,backupRepo);
+
+        try {
+
+            backupHandler.createBackup(serverID);
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @ShellMethod(key="delete-backup")
+    public boolean deleteBackup(@ShellOption long serverID){
+
+        BackupServerHandler backupServerHandler = new BackupServerHandler(serverRepo, backupRepo);
+
+        return backupServerHandler.removeBackup(serverID);
 
     }
 

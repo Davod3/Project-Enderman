@@ -7,16 +7,15 @@ import java.util.Date;
 @Entity
 public class ServerBackup {
 
-    private static final String BACKUPS_FOLDER = "/backups";
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne
+    @PrimaryKeyJoinColumn(referencedColumnName = "id")
     private ServerData server;
 
-    private String name;
+    private String path;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date backupDate;
@@ -37,13 +36,6 @@ public class ServerBackup {
         this.server = server;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Date getBackupDate() {
         return backupDate;
@@ -54,7 +46,11 @@ public class ServerBackup {
     }
 
     public String getPath() {
-        return BACKUPS_FOLDER + "/" + this.name;
+        return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
 }
