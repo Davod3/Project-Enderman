@@ -1,4 +1,5 @@
 HELP.md
+backup/
 servers/
 target/
 !.mvn/wrapper/maven-wrapper.jar
