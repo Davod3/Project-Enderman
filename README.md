@@ -5,11 +5,11 @@ Consists of a web application that allows the easier deployment and maintenance 
 
 ## Works natively on headless ubuntu 20+
 
-## Supports the creation of any kind of minecraft servers
+## Supports the creation of any kind of minecraft servers (done)
 	
 	-User inputs the server download url (done)
 	-Server is downloaded (done)
-	-User creates or selects the start script (selection done)
+	-User selects the start script (selection done)
 
 ## Supports simple server start/stop procedure (done)
 
@@ -17,10 +17,10 @@ Consists of a web application that allows the easier deployment and maintenance 
 	-User clicks in stop button, server stops (done)
 	-User clicks in start button, server starts (done)
 
-## Supports simple server backup procedure
+## Supports simple server backup procedure (done)
 
-	-User is presented with all servers, selecting one
-	-User clicks in backup button, backup is made. Old backup is deleted.
+	-User is presented with all servers, selecting one (done)
+	-User clicks in backup button, backup is made. Old backup is deleted. (done)
 
 ## Supports simple server.properties editing procedure
 
