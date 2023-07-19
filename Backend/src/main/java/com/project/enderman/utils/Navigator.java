@@ -13,7 +13,7 @@ public class Navigator {
 
         //File directory = new File(file.getPath());
 
-        if(file.exists() && file.isDirectory()){
+        if(file != null && file.exists() && file.isDirectory()){
 
             //Get folder contents
             List<FileDTO> result = new LinkedList<>();

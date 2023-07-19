@@ -2,6 +2,7 @@ package com.project.enderman.handlers;
 
 import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Navigator;
 
@@ -17,7 +18,7 @@ public class NavigateHandler {
         this.serverRepo = serverRepo;
     }
 
-    public List<FileDTO> listFiles(Long serverID){
+    public List<FileDTO> listFiles(Long serverID) throws ServerStatusException {
 
         Optional<ServerData> maybeSv = this.serverRepo.findById(serverID);
 
@@ -31,7 +32,7 @@ public class NavigateHandler {
 
         }
 
-        return null;
+        throw new ServerStatusException("Server does not exist!");
     }
 
 

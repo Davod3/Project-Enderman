@@ -58,15 +58,17 @@ public class Commands {
 
         NavigateHandler nav = new NavigateHandler(serverRepo);
 
-        List<FileDTO> files = nav.listFiles(serverid);
+        List<FileDTO> files = null;
 
-        if(files != null) {
+        try {
+            files = nav.listFiles(serverid);
 
             for(FileDTO f : files) {
                 System.out.println(f.getName() + " -- " + f.getPath() + " -- " + f.isFolder());
             }
 
-            return true;
+        } catch (ServerStatusException e) {
+            throw new RuntimeException(e);
         }
 
         return false;
