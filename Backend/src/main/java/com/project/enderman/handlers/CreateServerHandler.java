@@ -1,6 +1,8 @@
 package com.project.enderman.handlers;
 
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.exceptions.MissingFileException;
+import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
 
@@ -25,7 +27,7 @@ public class CreateServerHandler {
 
         return saved.getID();
     }
-    public boolean downloadServer(String url, long serverID) throws IOException {
+    public boolean downloadServer(String url, long serverID) throws IOException, ServerStatusException {
 
         //https://www.curseforge.com/api/v1/mods/715572/files/4642332/download
 
@@ -39,31 +41,35 @@ public class CreateServerHandler {
 
         }
 
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
-    public boolean selectStartScript(String filePath, long serverID) throws IOException {
+    public boolean selectStartScript(String filePath, long serverID) throws IOException, MissingFileException, ServerStatusException {
 
         Optional<ServerData> maybeSv = serverRepo.findById(serverID);
         File script = new File(filePath);
 
-        if(maybeSv.isPresent() && script.exists()){
+        if(maybeSv.isPresent()){
 
-            ServerData sv = maybeSv.get();
-            sv.setStartScript(filePath);
-            sv.setMainFolder(script.getParentFile().getPath());
+            if(script.exists()) {
 
-            serverRepo.save(sv);
+                ServerData sv = maybeSv.get();
+                sv.setStartScript(filePath);
+                sv.setMainFolder(script.getParentFile().getPath());
 
-            acceptEula(sv);
-            setPort(sv, sv.getPort());
+                serverRepo.save(sv);
 
-            return true;
+                acceptEula(sv);
+                setPort(sv, sv.getPort());
 
+                return true;
+
+            }
+
+            throw new MissingFileException("Script file does not exist!");
         }
 
-        System.out.println("File or server does not exist!");
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
     private void setPort(ServerData sv, String port) throws IOException {

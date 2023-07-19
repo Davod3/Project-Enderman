@@ -1,6 +1,7 @@
 package com.project.enderman.handlers;
 
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.apache.catalina.Server;
 
@@ -18,7 +19,7 @@ public class RunServerHandler {
         this.serverRepo = serverRepo;
     }
 
-    public boolean start(long serverID) throws IOException, InterruptedException {
+    public boolean start(long serverID) throws IOException, InterruptedException, ServerStatusException {
 
         Optional<ServerData> maybeSv = this.serverRepo.findById(serverID);
 
@@ -44,25 +45,28 @@ public class RunServerHandler {
 
                     return true;
                 } else {
-                    //Something bad happened
+
+                    //Something bad happened, get err message from terminal
+                    StringBuilder sb = new StringBuilder();
+
                     for(String s : lines) {
-                        System.out.println(s);
+                        sb.append(s);
                     }
-                    return false;
+
+                    throw new ServerStatusException(sb.toString());
+
                 }
             } else {
 
-                System.out.println("Server is already running");
-                return false;
+                throw new ServerStatusException("Server is already running!");
             }
 
         }
 
-        System.out.println("Server does not exist");
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
-    public boolean stop(long serverID) throws IOException, InterruptedException {
+    public boolean stop(long serverID) throws IOException, InterruptedException, ServerStatusException {
 
         Optional<ServerData> maybeSv = this.serverRepo.findById(serverID);
 
@@ -78,27 +82,24 @@ public class RunServerHandler {
 
                 if(lines.size() == 0) {
 
-                    System.out.println("Server stopped successfully");
                     return true;
                 } else {
-                    //Something bad happened
-                    for(String s : lines) {
-                        System.out.println(s);
-                    }
-                    return false;
-                }
+                    //Something bad happened, get err message from terminal
+                    StringBuilder sb = new StringBuilder();
 
+                    for(String s : lines) {
+                        sb.append(s);
+                    }
+
+                    throw new ServerStatusException(sb.toString());
+                }
 
             } else {
 
-                System.out.println("Server is already stopped!");
-                return false;
+                throw new ServerStatusException("Server is already stopped!");
             }
-
         }
-
-        System.out.println("Server does not exist");
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
     public boolean isRunning(long serverID) throws IOException, InterruptedException {
@@ -113,22 +114,15 @@ public class RunServerHandler {
             String id = sv.getScreenID();
 
             if(id != null) {
-
                 for(String s : lines) {
-
                     if(s.contains(id)){
-                        System.out.println("Server already has a session running");
                         return true;
                     }
                 }
             }
-            System.out.println("Server is not running");
             return false;
 
         }
-
-        System.out.println("Server does not exist");
-
        return false;
     }
 

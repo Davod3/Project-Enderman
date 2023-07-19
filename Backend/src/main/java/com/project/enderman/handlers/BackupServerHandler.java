@@ -2,6 +2,8 @@ package com.project.enderman.handlers;
 
 import com.project.enderman.entities.ServerBackup;
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.exceptions.FailedBackupException;
+import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Compression;
@@ -26,7 +28,7 @@ public class BackupServerHandler {
 
     }
 
-    public boolean createBackup(long serverID) throws IOException {
+    public boolean createBackup(long serverID) throws IOException, FailedBackupException, ServerStatusException {
 
         Optional<ServerData> maybeSV = this.serverRepo.findById(serverID);
 
@@ -52,9 +54,7 @@ public class BackupServerHandler {
                 return true;
 
                 } else {
-
-                    System.out.println("Failed to delete old backup");
-                    return false;
+                    throw new FailedBackupException("Failed to delete old backup");
                 }
 
             } else {
@@ -73,11 +73,10 @@ public class BackupServerHandler {
 
         }
 
-        System.out.println("Server does not exist!");
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
-    public boolean removeBackup(long serverID) {
+    public boolean removeBackup(long serverID) throws ServerStatusException, FailedBackupException {
 
         Optional<ServerData> maybeServer = serverRepo.findById(serverID);
 
@@ -97,16 +96,14 @@ public class BackupServerHandler {
                 return true;
             }
 
-            System.out.println("No backup exists!");
-            return false;
+            throw new FailedBackupException("Backup does not exist!");
 
         }
 
-        System.out.println("Server does not exist!");
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
-    public boolean restoreBackup(long serverID) throws IOException {
+    public boolean restoreBackup(long serverID) throws IOException, FailedBackupException, ServerStatusException {
 
         Optional<ServerData> maybeServer = serverRepo.findById(serverID);
 
@@ -129,14 +126,12 @@ public class BackupServerHandler {
 
             } else {
 
-                System.out.println("No backup!");
-                return false;
+                throw new FailedBackupException("Backup does not exist!");
             }
 
         }
 
-        System.out.println("Server does not exist!");
-        return false;
+        throw new ServerStatusException("Server does not exist!");
     }
 
     private String backup(ServerData sv) throws IOException {

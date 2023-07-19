@@ -1,0 +1,17 @@
+FailedBackupException
+
+-Failed to delete old backup!
+-Backup file does not exist!
+
+ServerStatusException
+
+-Server does not exist!
+-Server is not yet initialized!
+-Server is already running!
+-Server is already stopped!
+
+MissingFileException
+
+-Failed to download files!
+-Script file does not exist!
+

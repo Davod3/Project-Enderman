@@ -2,6 +2,9 @@ package com.project.enderman.console;
 
 import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.exceptions.FailedBackupException;
+import com.project.enderman.exceptions.MissingFileException;
+import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.handlers.*;
 import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
@@ -42,7 +45,7 @@ public class Commands {
         try {
             result = createSvHandler.downloadServer(url, (long) 1);
 
-        } catch (IOException e) {
+        } catch (IOException | ServerStatusException e) {
 
             throw new RuntimeException(e);
         }
@@ -120,7 +123,7 @@ public class Commands {
 
             return runServer.start(serverID);
 
-        } catch (IOException e) {
+        } catch (IOException | ServerStatusException e) {
 
             throw new RuntimeException(e);
 
@@ -139,7 +142,7 @@ public class Commands {
 
         try {
             return createServer.selectStartScript(path, id);
-        } catch (IOException e) {
+        } catch (IOException | MissingFileException | ServerStatusException e) {
             throw new RuntimeException(e);
         }
 
@@ -154,7 +157,7 @@ public class Commands {
 
             return runServer.stop(serverID);
 
-        } catch (IOException e) {
+        } catch (IOException | ServerStatusException e) {
 
             throw new RuntimeException(e);
 
@@ -176,7 +179,7 @@ public class Commands {
             backupHandler.createBackup(serverID);
             return true;
 
-        } catch (IOException e) {
+        } catch (IOException | FailedBackupException | ServerStatusException e) {
             throw new RuntimeException(e);
         }
 
@@ -187,7 +190,13 @@ public class Commands {
 
         BackupServerHandler backupServerHandler = new BackupServerHandler(serverRepo, backupRepo);
 
-        return backupServerHandler.removeBackup(serverID);
+        try {
+            return backupServerHandler.removeBackup(serverID);
+        } catch (ServerStatusException e) {
+            throw new RuntimeException(e);
+        } catch (FailedBackupException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -198,7 +207,7 @@ public class Commands {
 
         try {
             return backupServerHandler.restoreBackup(serverID);
-        } catch (IOException e) {
+        } catch (IOException | FailedBackupException | ServerStatusException e) {
             throw new RuntimeException(e);
         }
 
@@ -223,7 +232,7 @@ public class Commands {
 
             return true;
 
-        } catch (IOException e) {
+        } catch (IOException | ServerStatusException e) {
             throw new RuntimeException(e);
         }
 
@@ -241,7 +250,7 @@ public class Commands {
 
             return editServerHandler.setProperties(properties, serverID);
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException | ServerStatusException e) {
             throw new RuntimeException(e);
         }
 
