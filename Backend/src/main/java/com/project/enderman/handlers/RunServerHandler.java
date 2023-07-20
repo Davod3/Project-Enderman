@@ -27,39 +27,48 @@ public class RunServerHandler {
 
             //Retrieve server
             ServerData sv = maybeSv.get();
+            String scriptPath = sv.getStartScript();
 
-            // && sv.getStartScript() != null
-            if(!isRunning(serverID)  && sv.getStartScript() != null) {
+            if(scriptPath != null) {
 
-                String id = "Minecraft-" + sv.getPort() + "-" + sv.getName();
+                if(!isRunning(serverID)) {
 
-                String command = "screen -dmS " + id + " bash " + sv.getStartScript();
+                    String id = "Minecraft-" + sv.getPort() + "-" + sv.getName();
 
-                Stack<String> lines = executeCommand(command);
+                    String command = "screen -dmS " + id + " bash " + sv.getStartScript();
 
-                if(lines.size() == 0) {
+                    Stack<String> lines = executeCommand(command);
 
-                    //Server started with 0 errors
-                    sv.setScreenID(id);
-                    serverRepo.save(sv);
+                    if(lines.size() == 0) {
 
-                    return true;
+                        //Server started with 0 errors
+                        sv.setScreenID(id);
+                        serverRepo.save(sv);
+
+                        return true;
+                    } else {
+
+                        //Something bad happened, get err message from terminal
+                        StringBuilder sb = new StringBuilder();
+
+                        for(String s : lines) {
+                            sb.append(s);
+                        }
+
+                        throw new ServerStatusException(sb.toString());
+
+                    }
                 } else {
 
-                    //Something bad happened, get err message from terminal
-                    StringBuilder sb = new StringBuilder();
-
-                    for(String s : lines) {
-                        sb.append(s);
-                    }
-
-                    throw new ServerStatusException(sb.toString());
-
+                    throw new ServerStatusException("Server is already running!");
                 }
+
             } else {
 
-                throw new ServerStatusException("Server is already running!");
+                throw new ServerStatusException("Server has no start script selected!");
+
             }
+
 
         }
 
