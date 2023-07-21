@@ -1,6 +1,8 @@
 package com.project.enderman.services;
 
 import com.project.enderman.dtos.ResponseDTO;
+import com.project.enderman.dtos.ServerDTO;
+import com.project.enderman.entities.ServerData;
 import com.project.enderman.exceptions.MissingFileException;
 import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.handlers.BackupServerHandler;
@@ -12,6 +14,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 @Component
 public class CreateServerService {
@@ -76,6 +80,22 @@ public class CreateServerService {
 
             response.setErrorMsg(e.getMessage());
         }
+
+        return response;
+    }
+
+    public ResponseDTO<List<ServerDTO>> getServers() {
+
+        List<ServerData> servers = this.serverRepo.findAll();
+        List<ServerDTO> result = new LinkedList<>();
+
+        for(ServerData sv : servers) {
+            result.add(ServerDTO.dtofy(sv));
+        }
+
+        ResponseDTO<List<ServerDTO>> response = new ResponseDTO<>();
+
+        response.setResult(result);
 
         return response;
     }
