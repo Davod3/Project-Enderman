@@ -32,10 +32,13 @@ public class ServerData {
 
     private boolean isInstalled;
 
+    private boolean isRunning;
+
     public ServerData(String name, String port) {
         this.name = name;
         this.port = port;
         this.isInstalled = false;
+        this.isRunning = false;
     }
 
     public ServerData(){
@@ -55,6 +58,14 @@ public class ServerData {
 
     public void setInstalled(boolean installed) {
         isInstalled = installed;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 
     public ServerBackup getBackup() {

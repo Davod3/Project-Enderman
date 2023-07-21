@@ -1,7 +1,6 @@
 package com.project.enderman.console;
 
 import com.project.enderman.entities.FileDTO;
-import com.project.enderman.entities.ServerData;
 import com.project.enderman.entities.User;
 import com.project.enderman.exceptions.FailedBackupException;
 import com.project.enderman.exceptions.MissingFileException;

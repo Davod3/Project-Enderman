@@ -10,6 +10,8 @@ public class ServerDTO {
 
     private String port;
 
+    private boolean isRunning;
+
     public long getId() {
         return id;
     }
@@ -34,6 +36,14 @@ public class ServerDTO {
         this.port = port;
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
+
     public static ServerDTO dtofy(ServerData sv) {
 
         ServerDTO dto = new ServerDTO();
@@ -41,6 +51,7 @@ public class ServerDTO {
         dto.setId(sv.getID());
         dto.setName(sv.getName());
         dto.setPort(sv.getPort());
+        dto.setRunning(sv.isRunning());
 
         return dto;
 
