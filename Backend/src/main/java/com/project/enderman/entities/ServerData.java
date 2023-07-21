@@ -30,9 +30,12 @@ public class ServerData {
 
     private String mainFolder;
 
+    private boolean isInstalled;
+
     public ServerData(String name, String port) {
         this.name = name;
         this.port = port;
+        this.isInstalled = false;
     }
 
     public ServerData(){
@@ -44,6 +47,14 @@ public class ServerData {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isInstalled() {
+        return isInstalled;
+    }
+
+    public void setInstalled(boolean installed) {
+        isInstalled = installed;
     }
 
     public ServerBackup getBackup() {

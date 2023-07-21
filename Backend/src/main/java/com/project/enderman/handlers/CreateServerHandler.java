@@ -5,6 +5,7 @@ import com.project.enderman.exceptions.MissingFileException;
 import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
+import org.apache.catalina.Server;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,9 +36,22 @@ public class CreateServerHandler {
 
         if(maybeSv.isPresent()){
 
-            String destinationFolder = maybeSv.get().getFolder();
+            ServerData sv = maybeSv.get();
 
-            return Downloader.download(url, destinationFolder);
+            if(!sv.isInstalled()) {
+
+                String destinationFolder = sv.getFolder();
+
+                boolean result = Downloader.download(url, destinationFolder);
+
+                sv.setInstalled(result);
+
+                serverRepo.save(sv);
+
+                return result;
+            } else {
+                throw new ServerStatusException("Server is already installed!");
+            }
 
         }
 
@@ -56,6 +70,7 @@ public class CreateServerHandler {
                 ServerData sv = maybeSv.get();
                 sv.setStartScript(filePath);
                 sv.setMainFolder(script.getParentFile().getPath());
+                sv.setInstalled(true);
 
                 serverRepo.save(sv);
 
