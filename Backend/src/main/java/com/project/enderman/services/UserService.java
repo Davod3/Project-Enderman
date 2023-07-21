@@ -29,4 +29,9 @@ public class UserService {
         return result.size()>0?result.get(0):null;
 
     }
+
+    public List<User> getUsers() {
+
+        return this.userRepo.findAll();
+    }
 }

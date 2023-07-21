@@ -284,4 +284,15 @@ public class Commands {
 
     }
 
+    @ShellMethod(key="view-users")
+    public void viewUsers() {
+
+        List<User> users = this.userService.getUsers();
+
+        for(User u : users) {
+            System.out.println(u.getId() + "--" + u.getUsername() + "--" + u.getToken());
+        }
+
+    }
+
 }
