@@ -147,3 +147,9 @@
 1689949262533:add-user david
 1689957330438:add-user ricardo
 1689957374777:add-user david
+1689960850995:add-server david
+1689960855821:add-user david
+1689960903538:add-user pedro
+1689960951221:add-user david
+1689961722533:view-user david
+1689961753280:view-user pedro

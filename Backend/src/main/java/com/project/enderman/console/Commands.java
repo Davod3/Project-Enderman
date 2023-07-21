@@ -2,6 +2,7 @@ package com.project.enderman.console;
 
 import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.entities.User;
 import com.project.enderman.exceptions.FailedBackupException;
 import com.project.enderman.exceptions.MissingFileException;
 import com.project.enderman.exceptions.ServerStatusException;
@@ -267,6 +268,19 @@ public class Commands {
         String token = this.userService.addUser(username);
 
         System.out.println("User's api token: " + token);
+
+    }
+
+    @ShellMethod(key="view-user")
+    public void viewUser(@ShellOption String username){
+
+        User u = this.userService.getUser(username);
+
+        if(u != null){
+            System.out.println(u.getToken());
+        } else {
+            System.out.println("No user with that username.");
+        }
 
     }
 
