@@ -6,6 +6,7 @@ import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
 import org.apache.catalina.Server;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +21,7 @@ public class CreateServerHandler {
         this.serverRepo = serverRepo;
     }
 
-    public long createServer(String name, String port) {
+    public long createServer(String name, String port) throws DataIntegrityViolationException {
 
         ServerData sv = new ServerData(name, port);
 

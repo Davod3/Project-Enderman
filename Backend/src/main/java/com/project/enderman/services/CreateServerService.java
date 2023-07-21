@@ -8,6 +8,7 @@ import com.project.enderman.handlers.CreateServerHandler;
 import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -20,9 +21,13 @@ public class CreateServerService {
     public ResponseDTO<Long> createServer(String name, String port) {
 
         ResponseDTO<Long> response = new ResponseDTO<>();
-        long result = new CreateServerHandler(this.serverRepo).createServer(name,port);
 
-        response.setResult(result);
+        try {
+            long result = new CreateServerHandler(this.serverRepo).createServer(name,port);
+            response.setResult(result);
+        } catch (DataIntegrityViolationException e) {
+            response.setErrorMsg("Server name already exists. Please use a different one!");
+        }
 
         return response;
 
