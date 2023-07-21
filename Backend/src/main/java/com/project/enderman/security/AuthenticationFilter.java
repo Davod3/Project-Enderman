@@ -1,5 +1,6 @@
 package com.project.enderman.security;
 
+import com.project.enderman.services.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,12 +20,19 @@ import java.io.PrintWriter;
 
 public class AuthenticationFilter extends OncePerRequestFilter {
 
+    private UserService userService;
+
+    public AuthenticationFilter(UserService userService) {
+
+        this.userService = userService;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
 
-            Authentication authentication = AuthenticationService.getAuthentication(request);
+            Authentication authentication = AuthenticationService.getAuthentication(request, userService);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 

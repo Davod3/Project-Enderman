@@ -8,6 +8,7 @@ import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.handlers.*;
 import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
+import com.project.enderman.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -23,10 +24,12 @@ import java.util.Set;
 public class Commands {
 
     @Autowired
-    ServerDataRepository serverRepo;
+    private ServerDataRepository serverRepo;
 
     @Autowired
-    ServerBackupRepository backupRepo;
+    private ServerBackupRepository backupRepo;
+
+    @Autowired private UserService userService;
 
     @ShellMethod(key="create-server")
     public long createServer(@ShellOption String name, @ShellOption String port) {
@@ -255,6 +258,15 @@ public class Commands {
         } catch (IOException | InterruptedException | ServerStatusException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    @ShellMethod(key="add-user")
+    public void addUser(@ShellOption String username){
+
+        String token = this.userService.addUser(username);
+
+        System.out.println("User's api token: " + token);
 
     }
 
