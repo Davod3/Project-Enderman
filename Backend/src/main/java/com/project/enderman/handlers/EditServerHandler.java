@@ -74,7 +74,7 @@ public class EditServerHandler {
                 fis.close();
                 fos.close();
 
-                /*
+
 
                 //This code only runs in linux (production) so it remains unused during development
 
@@ -89,7 +89,7 @@ public class EditServerHandler {
                     }
                 }
 
-                 */
+
 
                 //Server was not running, just return
                 return true;
