@@ -22,7 +22,6 @@ public class AuthenticationService {
     public static Authentication getAuthentication(HttpServletRequest request, UserService userService) {
 
         String apiUser = request.getHeader(AUTH_USER_HEADER_NAME);
-
         String apiKey = request.getHeader(AUTH_TOKEN_HEADER_NAME);
 
         if(apiUser == null || apiKey == null) {
