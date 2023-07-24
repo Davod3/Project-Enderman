@@ -22,6 +22,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     private UserService userService;
 
+    private static final String ALLOW_ORIGIN = "http://192.168.1.135:3000";
+    private static final String ALLOW_METHODS = "GET, POST, PUT, DELETE, OPTIONS, PATCH";
+    private static final String ALLOW_HEADERS = "X-API-USER, X-API-KEY, Content-Type";
+    private static final String MAX_AGE = "3600";
+
     public AuthenticationFilter(UserService userService) {
 
         this.userService = userService;
@@ -29,6 +34,18 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        //Setup cors headers
+        response.setHeader("Access-Control-Allow-Origin", ALLOW_ORIGIN);
+        response.setHeader("Access-Control-Allow-Methods", ALLOW_METHODS);
+        response.setHeader("Access-Control-Allow-Headers", ALLOW_HEADERS);
+        response.setHeader("Access-Control-Max-Age", MAX_AGE);
+
+        // Handle CORS headers for preflight requests
+        if (request.getMethod().equals("OPTIONS")) {
+            response.setStatus(HttpServletResponse.SC_OK); // Set HTTP 200 OK status for preflight
+            return;
+        }
 
         try {
 
