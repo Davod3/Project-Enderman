@@ -4,6 +4,7 @@ import ServerDetails from '../ServerDetails/ServerDetails';
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../../src/logo.png';
+import CreateServer from '../CreateServer/CreateServer';
 
 function setToken(userToken) {
 
@@ -60,6 +61,8 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />}/>
 
         <Route path='/server' element={<ServerDetails />}/>
+
+        <Route path='/createserver' element={<CreateServer />}/>
 
       </Routes>
     </BrowserRouter>
