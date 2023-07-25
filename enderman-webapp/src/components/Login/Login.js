@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import "./Login.css";
-import PropTypes from 'prop-types'
-import {verifyToken} from '../../services/UserService'
+import PropTypes from 'prop-types';
+import {verifyToken} from '../../services/UserService';
 
 export default function Login({ setToken }) {
     
     const [username, setUserName] = useState();
     const [usertoken, setUserToken] = useState();
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        const validLogin = verifyToken(username, usertoken);
+        const validLogin = await verifyToken(username, usertoken);
+
+        console.log(validLogin);
 
         if(validLogin){
             setToken(usertoken);
+            window.location.href = "/dashboard";
+        } else {
+
+            alert("Wrong username or token!");
+
         }
     }
 

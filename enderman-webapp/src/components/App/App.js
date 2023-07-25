@@ -1,7 +1,7 @@
 import './App.css';
 import Dashboard from '../Dashboard/Dashboard';
 import ServerDetails from '../ServerDetails/ServerDetails';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Login from '../Login/Login';
 
 function setToken(userToken) {
@@ -13,6 +13,8 @@ function setToken(userToken) {
 function getToken() {
 
   const token = localStorage.getItem('token');
+
+  console.log("Getting token: " + token)
 
   return token;
 
@@ -36,6 +38,8 @@ function App() {
 
     <BrowserRouter>
       <Routes>
+
+        <Route path='/' element={<Navigate to="/dashboard" />} />
         
         <Route path='/dashboard' element={<Dashboard />}/>
 
