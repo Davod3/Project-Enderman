@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import PropTypes from 'prop-types';
 import {verifyToken} from '../../services/UserService';
+import logo from '../../../src/logo.png';
 
 export default function Login({ setToken }) {
     
@@ -30,6 +31,8 @@ export default function Login({ setToken }) {
 
             <h1>Please Log In</h1>
 
+            <img src={logo} alt='Enderman holding a minecraft dirt block'></img>
+
             <form onSubmit={handleSubmit}>
             
                 <label>
@@ -43,7 +46,7 @@ export default function Login({ setToken }) {
                 </label>
 
                 <div>
-                    <button type="submit">Login</button>
+                    <button id="login-btn" type="submit">Login</button>
                 </div>
 
             </form>

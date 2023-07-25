@@ -3,7 +3,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import ServerDetails from '../ServerDetails/ServerDetails';
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Login from '../Login/Login';
-import logo from './logo.png';
+import logo from '../../../src/logo.png';
 
 function setToken(userToken) {
 
