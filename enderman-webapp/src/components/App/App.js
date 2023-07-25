@@ -3,6 +3,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import ServerDetails from '../ServerDetails/ServerDetails';
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Login from '../Login/Login';
+import logo from './logo.png';
 
 function setToken(userToken) {
 
@@ -42,6 +43,8 @@ function App() {
   <div className='wrapper'>
 
     <header>
+
+      <img src={logo} alt='Enderman holding a minecraft dirt block'></img>
 
       <h1>Project Enderman</h1>
 

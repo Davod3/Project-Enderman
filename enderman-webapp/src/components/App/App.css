@@ -9,7 +9,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 35vw;
+  gap: 30vw;
   align-items: center;
 }
 
@@ -19,7 +19,7 @@ header button {
   color: black;
   text-align: center;
   text-decoration: none;
-  margin-right: 10vw;
+  margin-right: 7vw;
   height: 7vh;
   width: 5vw;
 }
