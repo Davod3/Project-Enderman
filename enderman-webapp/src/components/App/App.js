@@ -14,9 +14,16 @@ function getToken() {
 
   const token = localStorage.getItem('token');
 
-  console.log("Getting token: " + token)
-
   return token;
+
+}
+
+function logout() {
+
+  if(getToken() !== null) {
+    localStorage.removeItem('token');
+    window.location.href = "/login";
+  }
 
 }
 
@@ -34,7 +41,13 @@ function App() {
   
   <div className='wrapper'>
 
-    <h1>Project Enderman</h1>
+    <header>
+
+      <h1>Project Enderman</h1>
+
+      <button onClick={logout}>Logout</button>
+
+    </header>
 
     <BrowserRouter>
       <Routes>
