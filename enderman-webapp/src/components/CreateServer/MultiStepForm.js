@@ -37,17 +37,13 @@ class MultiStepForm extends Component {
 
             case 1:
                 //Handle case 1 requests
-                console.log(serverName);
-                console.log(serverPort);
-                result = await this.createServer(serverName, serverPort);
+                //result = await this.createServer(serverName, serverPort);
                 //result = true;
 
                 break;
             case 2: 
                 //Handle case 2 requests
-                console.log(url);
-                console.log(id);
-                result = await this.downloadServer(id, url);
+                //result = await this.downloadServer(id, url);
                 break;
             case 3:
                 //Handle case 3 requests
@@ -115,7 +111,7 @@ class MultiStepForm extends Component {
 
     render(){
         const { id, step, serverName, serverPort, url, hasUrl, script } = this.state;
-        const inputValues = { serverName, serverPort, url, hasUrl, script };
+        const inputValues = { id, serverName, serverPort, url, hasUrl, script };
         
         switch(step) {
         case 1:

@@ -55,3 +55,10 @@
     align-items: center;
     gap: 5vh;
 }
+
+#file-list-container {
+    overflow-y: scroll;
+    height: 20vh;
+    border: solid;
+    width: 30vw;
+}
