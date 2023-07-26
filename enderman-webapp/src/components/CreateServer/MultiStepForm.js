@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import DetailsForm from './DetailsForm'
+import DownloadForm from './DownloadForm';
+import ScriptForm from './ScriptForm';
+import Completed from './Completed';
 
 class MultiStepForm extends Component {
     state = {
@@ -18,16 +21,8 @@ class MultiStepForm extends Component {
         })
     }
 
-    prevStep = () => {
-        const { step } = this.state
-        this.setState({
-            step : step - 1
-        })
-    }
-
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
-        console.log(this.state);
     }
 
     render(){
@@ -42,7 +37,19 @@ class MultiStepForm extends Component {
                     inputValues={inputValues}
                     />
         case 2:
-            return <></>
+            return <DownloadForm
+                    nextStep={this.nextStep}
+                    handleChange = {this.handleChange}
+                    inputValues = {inputValues}/>
+
+        case 3:
+            return <ScriptForm
+                    nextStep={this.nextStep}
+                    handleChange={this.handleChange}
+                    inputValues={inputValues}/>
+
+        case 4:
+            return <Completed/>
         }
     }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Col, Container } from 'react-bootstrap';
 
 
-class DetailsForm extends Component {
+class DownloadForm extends Component {
 
     back = (e) => {
         e.preventDefault();
@@ -18,28 +18,16 @@ class DetailsForm extends Component {
     render() {
         return (<Container>
             <Form className='form-group'>
-                <Form.Group as={Col} controlId="formName">
-                    <Form.Label className="label">Server Name:</Form.Label>
+                <Form.Group as={Col} controlId="formURL">
+                    <Form.Label className="label">Download Url: </Form.Label>
                     <Form.Control
                         type="text"
-                        defaultValue={this.props.inputValues.name}
+                        defaultValue={this.props.inputValues.url}
                         name="serverName"
                         required
                         onChange={this.props.handleChange}
                     />
                 </Form.Group>
-
-                <Form.Group controlId="formPort">
-                    <Form.Label className="label">Server Port:</Form.Label>
-                    <Form.Control
-                        type="number"
-                        defaultValue={this.props.inputValues.port}
-                        name="serverPort"
-                        required
-                        onChange={this.props.handleChange}
-                    />
-                </Form.Group>
-
                 <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
             </Form>
         </Container>
@@ -47,4 +35,4 @@ class DetailsForm extends Component {
     }
 }
 
-export default DetailsForm;
+export default DownloadForm;
