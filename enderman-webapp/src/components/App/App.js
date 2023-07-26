@@ -12,6 +12,12 @@ function setToken(userToken) {
 
 }
 
+function setUser(username) {
+
+  localStorage.setItem('user', username)
+
+}
+
 function getToken() {
 
   const token = localStorage.getItem('token');
@@ -36,7 +42,7 @@ function App() {
   console.log("Token: " + token)
 
   if(!token) {
-    return <Login setToken={setToken}/>
+    return <Login setToken={setToken} setUser={setUser}/>
   }
   
   return (

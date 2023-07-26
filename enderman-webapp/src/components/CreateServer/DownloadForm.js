@@ -23,7 +23,7 @@ class DownloadForm extends Component {
                     <Form.Control
                         type="text"
                         defaultValue={this.props.inputValues.url}
-                        name="serverName"
+                        name="url"
                         required
                         onChange={this.props.handleChange}
                     />

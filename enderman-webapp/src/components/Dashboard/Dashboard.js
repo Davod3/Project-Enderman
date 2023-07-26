@@ -2,6 +2,10 @@ import React from "react";
 import * as Icon from 'react-bootstrap-icons';
 import './Dashboard.css'
 
+function goToForm() {
+    window.location.href='/createserver'
+}
+
 export default function Dashboard() {
     return(
         
@@ -11,7 +15,7 @@ export default function Dashboard() {
 
             <div id='list-wrapper'>
                
-                <Icon.PlusCircle size={30}></Icon.PlusCircle>
+                <Icon.PlusCircle size={30} onClick={goToForm}></Icon.PlusCircle>
                 <hr/>
 
             </div>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {verifyToken} from '../../services/UserService';
 import logo from '../../../src/logo.png';
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUser }) {
     
     const [username, setUserName] = useState();
     const [usertoken, setUserToken] = useState();
@@ -17,6 +17,7 @@ export default function Login({ setToken }) {
 
         if(validLogin){
             setToken(usertoken);
+            setUser(username)
             window.location.href = "/dashboard";
         } else {
 
@@ -57,5 +58,6 @@ export default function Login({ setToken }) {
 }
 
 Login.propTypes = {
-    setToken: PropTypes.func.isRequired
+    setToken: PropTypes.func.isRequired,
+    setUser: PropTypes.func.isRequired
 }
