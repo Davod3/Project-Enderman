@@ -3,7 +3,8 @@ import DetailsForm from './DetailsForm'
 import DownloadForm from './DownloadForm';
 import ScriptForm from './ScriptForm';
 import Completed from './Completed';
-import { createServer } from '../../services/CreateService';
+import { createServer, downloadServer } from '../../services/CreateService';
+import Downloading from './Downloading';
 
 class MultiStepForm extends Component {
     state = {
@@ -16,11 +17,21 @@ class MultiStepForm extends Component {
         script: '',
     }
 
+    setLoading = (runLoad) => {
+
+        if(runLoad) {
+            this.setState({step : 5})
+        } else {
+            this.setState({step : 2})
+        }
+
+    }
+
     nextStep = async () => {
         
         const { id, step, serverName, serverPort, url, hasUrl, script } = this.state
 
-        let result;
+        let result = true;
 
         switch(step){
 
@@ -29,12 +40,14 @@ class MultiStepForm extends Component {
                 console.log(serverName);
                 console.log(serverPort);
                 result = await this.createServer(serverName, serverPort);
+                //result = true;
 
                 break;
             case 2: 
                 //Handle case 2 requests
                 console.log(url);
-                console.log(hasUrl);
+                console.log(id);
+                result = await this.downloadServer(id, url);
                 break;
             case 3:
                 //Handle case 3 requests
@@ -54,7 +67,6 @@ class MultiStepForm extends Component {
 
         }
 
-        
     }
 
     createServer = async (serverName, serverPort) => {
@@ -73,6 +85,26 @@ class MultiStepForm extends Component {
         }
 
         this.setState({id : response.result})
+        return true;
+
+    }
+
+    downloadServer = async (serverID, packURL) => {
+
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        const response = await downloadServer(serverID, packURL, this.setLoading, user, token);
+
+        console.log(response)
+
+        if(response.errorMsg !== null) {
+
+            alert(response.errorMsg)
+            return false;
+
+        }
+
         return true;
 
     }
@@ -106,6 +138,9 @@ class MultiStepForm extends Component {
 
         case 4:
             return <Completed/>
+
+        case 5:
+            return <Downloading/>
         }
     }
 }
