@@ -3,6 +3,7 @@ package com.project.enderman.controllers;
 import com.project.enderman.dtos.ResponseDTO;
 import com.project.enderman.dtos.ServerDTO;
 import com.project.enderman.services.CreateServerService;
+import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +40,10 @@ public class CreateApiController {
     @GetMapping("/servers")
     public ResponseDTO<List<ServerDTO>> getServers() {
         return createService.getServers();
+    }
+
+    @GetMapping("/server/{id}")
+    public ResponseDTO<ServerDTO> getServer(@PathVariable("id") long serverID) {
+        return this.createService.getServer(serverID);
     }
 }

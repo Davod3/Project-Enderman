@@ -22,7 +22,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     private UserService userService;
 
-    private static final String ALLOW_ORIGIN = "http://192.168.1.135:3000";
+    private static final String ALLOW_ORIGIN = "http://localhost:3000";
     private static final String ALLOW_METHODS = "GET, POST, PUT, DELETE, OPTIONS, PATCH";
     private static final String ALLOW_HEADERS = "X-API-USER, X-API-KEY, Content-Type";
     private static final String MAX_AGE = "3600";
