@@ -62,3 +62,30 @@
     border: solid;
     width: 30vw;
 }
+
+#file-list-header {
+
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    border: solid;
+    border-bottom: none;
+    height: 3vh;
+    align-items: center;
+
+}
+
+#return-btn {
+
+    width: 3vw;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: solid;
+    height: 3vh;
+}
+
+#return-btn:hover{
+
+    cursor: pointer;
+}

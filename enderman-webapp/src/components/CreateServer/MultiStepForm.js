@@ -3,7 +3,7 @@ import DetailsForm from './DetailsForm'
 import DownloadForm from './DownloadForm';
 import ScriptForm from './ScriptForm';
 import Completed from './Completed';
-import { createServer, downloadServer } from '../../services/CreateService';
+import { createServer, downloadServer, setScript } from '../../services/CreateService';
 import Downloading from './Downloading';
 
 class MultiStepForm extends Component {
@@ -27,7 +27,7 @@ class MultiStepForm extends Component {
 
     }
 
-    nextStep = async () => {
+    nextStep = async (data) => {
         
         const { id, step, serverName, serverPort, url, hasUrl, script } = this.state
 
@@ -37,21 +37,25 @@ class MultiStepForm extends Component {
 
             case 1:
                 //Handle case 1 requests
-                //result = await this.createServer(serverName, serverPort);
-                //result = true;
+                result = await this.createServer(serverName, serverPort);
 
                 break;
             case 2: 
                 //Handle case 2 requests
-                //result = await this.downloadServer(id, url);
+                result = await this.downloadServer(id, url);
                 break;
             case 3:
                 //Handle case 3 requests
-                console.log(script);
+                
+                if(data !== undefined && data !== null) {
+                    result = this.setScript(id, data);
+                } else {
+                    alert('Please select a start script :)')
+                    result = false;
+                }
+
                 break;
         }
-
-        console.log(result);
 
         if(result) {
 
@@ -102,6 +106,17 @@ class MultiStepForm extends Component {
         }
 
         return true;
+
+    }
+
+    setScript = async (serverID, path) => {
+
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        const response = await setScript(serverID, path, user, token);
+
+        return response;
 
     }
 

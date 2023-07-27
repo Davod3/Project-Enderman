@@ -64,4 +64,40 @@ export async function downloadServer(serverID, serverURL, setLoading, username, 
 
 }
 
+export async function setScript(serverID, scriptPath, username, token){
+
+    return fetch( `${url}/server/${serverID}/script?path=${scriptPath}`, {
+        method: 'PATCH',
+        headers: {
+            'X-API-USER': username,
+            'X-API-KEY': token
+        }
+    })
+    .then(async response => {
+
+        if(!response.ok) {
+            return response.body;
+        }
+
+        //Process response
+        const data = await response.json();
+
+        if(data.errorMsg !== null) {
+
+            alert(data.errorMsg);
+            return null;
+
+        }
+
+        return data.result; //Boolean
+
+    })
+    .catch(err => {
+
+        console.log("Erro: " + err);
+        
+    });
+
+}
+
 
