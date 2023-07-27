@@ -37,6 +37,7 @@ class MultiStepForm extends Component {
 
             case 1:
                 //Handle case 1 requests
+
                 result = await this.createServer(serverName, serverPort);
 
                 break;
@@ -71,6 +72,17 @@ class MultiStepForm extends Component {
 
     createServer = async (serverName, serverPort) => {
 
+
+        if(serverName===''){
+            alert('Server Name must not be empty!');
+            return false;
+        }
+
+        if(serverPort===''){
+            alert('Server Port must not be empty!');
+            return false;
+        }
+
         //Call service
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
@@ -91,12 +103,18 @@ class MultiStepForm extends Component {
 
     downloadServer = async (serverID, packURL) => {
 
+        if(packURL === '') {
+
+            const proceed = window.confirm('No pack download url selected. \n No files will be downloaded. Are you sure you want to continue?');
+          
+            return proceed;
+        }
+
+
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
 
         const response = await downloadServer(serverID, packURL, this.setLoading, user, token);
-
-        console.log(response)
 
         if(response.errorMsg !== null) {
 
