@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CreateServerService {
@@ -98,6 +99,25 @@ public class CreateServerService {
         response.setResult(result);
 
         return response;
+    }
+
+    public ResponseDTO<ServerDTO> getServer(long id) {
+
+        Optional<ServerData> maybeSv = this.serverRepo.findById(id);
+        ResponseDTO<ServerDTO> response = new ResponseDTO<>();
+
+        if(maybeSv.isPresent()){
+
+            response.setResult(ServerDTO.dtofy(maybeSv.get()));
+
+        } else {
+
+            response.setErrorMsg("No server with the given id.");
+
+        }
+
+        return response;
+
     }
 
 }

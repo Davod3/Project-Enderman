@@ -12,6 +12,10 @@ public class ServerDTO {
 
     private boolean isRunning;
 
+    private boolean isInstalled;
+
+    private String startPath;
+
     public long getId() {
         return id;
     }
@@ -44,6 +48,22 @@ public class ServerDTO {
         isRunning = running;
     }
 
+    public boolean isInstalled() {
+        return isInstalled;
+    }
+
+    public void setInstalled(boolean installed) {
+        isInstalled = installed;
+    }
+
+    public String getStartPath() {
+        return startPath;
+    }
+
+    public void setStartPath(String startPath) {
+        this.startPath = startPath;
+    }
+
     public static ServerDTO dtofy(ServerData sv) {
 
         ServerDTO dto = new ServerDTO();
@@ -52,6 +72,8 @@ public class ServerDTO {
         dto.setName(sv.getName());
         dto.setPort(sv.getPort());
         dto.setRunning(sv.isRunning());
+        dto.setInstalled(sv.isInstalled());
+        dto.setStartPath(sv.getStartScript());
 
         return dto;
 
