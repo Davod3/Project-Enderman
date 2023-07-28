@@ -39,8 +39,6 @@ function App() {
   
   const token = getToken();
 
-  console.log("Token: " + token)
-
   if(!token) {
     return <Login setToken={setToken} setUser={setUser}/>
   }
@@ -66,7 +64,7 @@ function App() {
         
         <Route path='/dashboard' element={<Dashboard />}/>
 
-        <Route path='/server' element={<ServerDetails />}/>
+        <Route path='/server/:id' element={<ServerDetails/>}/>
 
         <Route path='/createserver' element={<CreateServer />}/>
 

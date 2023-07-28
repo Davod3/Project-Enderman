@@ -28,7 +28,7 @@ class Dashboard extends Component {
     }
 
     handleClick = (server) => {
-        //TODO
+        window.location.href = `/server/${server.id}`;
     }
 
     render() {
