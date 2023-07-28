@@ -16,10 +16,15 @@ class DetailsForm extends Component {
 
 
     render() {
-        return (<Container>
+        return (
+        
+        <Container>
+
+            <p className='step-instruction'>Please fill in your server name and port: </p>
+
             <Form className='form-group'>
                 <Form.Group as={Col} controlId="formName">
-                    <Form.Label className="label">Server Name:</Form.Label>
+                    <Form.Label className="label">Name:</Form.Label>
                     <Form.Control
                         type="text"
                         defaultValue={this.props.inputValues.name}
@@ -30,7 +35,7 @@ class DetailsForm extends Component {
                 </Form.Group>
 
                 <Form.Group controlId="formPort">
-                    <Form.Label className="label">Server Port:</Form.Label>
+                    <Form.Label className="label">Port:</Form.Label>
                     <Form.Control
                         type="number"
                         defaultValue={this.props.inputValues.port}
