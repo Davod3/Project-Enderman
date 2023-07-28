@@ -14,6 +14,8 @@ class ServerDisplay extends Component {
         
         return (
             <div onClick={this.handleClick} className='server'>
+                
+                <Icon.CircleFill size={40} color={this.props.server.isRunning?'#88FF88':'red'}/>
 
                 <p>{this.props.server.name}</p>
 

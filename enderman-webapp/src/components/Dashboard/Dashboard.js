@@ -8,7 +8,8 @@ import ServerDisplay from "./ServerDisplay";
 class Dashboard extends Component {
 
     state = {
-        serverList: []
+        serverList: [],
+        isLoaded: false,
     }
 
     createServer = () => {
@@ -22,7 +23,7 @@ class Dashboard extends Component {
 
         const servers = await listServers(username, token);
 
-        this.setState({serverList : servers});
+        this.setState({serverList : servers, isLoaded: true});
 
     }
 
@@ -32,6 +33,10 @@ class Dashboard extends Component {
 
     render() {
 
+        if(!this.state.isLoaded){
+            this.loadServerList();
+        }
+       
         return (
 
             <div className="dashboard-wrapper">
