@@ -89,14 +89,13 @@ class MultiStepForm extends Component {
 
         const response = await createServer(serverName, serverPort, user, token);
 
-        if(response.errorMsg !== null) {
+        if(response === null) {
 
-            alert(response.errorMsg)
             return false;
 
         }
 
-        this.setState({id : response.result})
+        this.setState({id : response})
         return true;
 
     }
@@ -116,14 +115,13 @@ class MultiStepForm extends Component {
 
         const response = await downloadServer(serverID, packURL, this.setLoading, user, token);
 
-        if(response.errorMsg !== null) {
+        if(response === null) {
 
-            alert(response.errorMsg)
             return false;
-
+            
         }
 
-        return true;
+        return response;
 
     }
 
