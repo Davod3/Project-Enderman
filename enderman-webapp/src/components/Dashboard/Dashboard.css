@@ -36,3 +36,8 @@
     background-color: rgb(185, 185, 185);
 }
 
+.server-field-container {
+    width: 100%;
+    text-align: center;
+}
+
