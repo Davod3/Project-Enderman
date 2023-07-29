@@ -13,13 +13,26 @@ export async function createServer(serverName, serverPort, username, token){
         .then(async response => {
 
             if(!response.ok) {
-                return response.body;
+
+                let content = await response.text();
+
+                alert(content);
+
+                return null;
+
             }
 
             //Process response
             const data = await response.json();
 
-            return data;
+            if(data.errorMsg !== null) {
+
+                alert(data.errorMsg);
+                return null;
+    
+            }
+    
+            return data.result; //Number
 
         })
         .catch(err => {
@@ -34,6 +47,8 @@ export async function downloadServer(serverID, serverURL, setLoading, username, 
 
     setLoading(true);
 
+    console.log(serverID);
+
     return fetch( `${url}/server/download/${serverID}?url=${serverURL}`, {
         method: 'PATCH',
         headers: {
@@ -44,15 +59,31 @@ export async function downloadServer(serverID, serverURL, setLoading, username, 
     .then(async response => {
 
         if(!response.ok) {
-            return response.body;
+            
+            let content = await response.text();
+
+            alert(content);
+
+            setLoading(false);
+            return null;
         }
 
         //Process response
         const data = await response.json();
 
-        setLoading(false);
+        if(data.errorMsg !== null) {
 
-        return data;
+            alert(data.errorMsg);
+            
+            setLoading(false);
+            return null;
+
+        }
+
+        setLoading(false);
+        return data.result; //Boolean
+
+        
 
     })
     .catch(err => {
@@ -76,7 +107,12 @@ export async function setScript(serverID, scriptPath, username, token){
     .then(async response => {
 
         if(!response.ok) {
-            return response.body;
+            
+            let content = await response.text();
+
+            alert(content);
+
+            return null;
         }
 
         //Process response
@@ -112,7 +148,12 @@ export async function listServers(username, token){
     .then(async response => {
 
         if(!response.ok) {
-            return response.body;
+            
+            let content = await response.text();
+
+            alert(content);
+
+            return null;
         }
 
         //Process response
@@ -136,5 +177,48 @@ export async function listServers(username, token){
     
 
 }
+
+export async function getServer(serverID, username, token){
+
+    return fetch( `${url}/server/${serverID}`, {
+        method: 'GET',
+        headers: {
+            'X-API-USER': username,
+            'X-API-KEY': token
+        }
+    })
+    .then(async response => {
+
+        if(!response.ok) {
+            
+            let content = await response.text();
+
+            alert(content);
+
+            return null;
+        }
+
+        //Process response
+        const data = await response.json();
+
+        if(data.errorMsg !== null) {
+
+            alert(data.errorMsg);
+            return null;
+
+        }
+
+        return data.result; //ServerData
+    })
+    .catch(err => {
+
+        console.log("Erro: " + err);
+        
+    });
+
+    
+
+}
+
 
 

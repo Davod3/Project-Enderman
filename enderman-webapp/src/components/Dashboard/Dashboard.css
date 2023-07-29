@@ -10,4 +10,34 @@
 #list-wrapper{
     margin-top: 10%;
     text-align: left;
+    
 }
+
+#server-list-container {
+
+    height: 50vh;
+    overflow-y: scroll;
+
+}
+
+.server {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: rgb(221, 221, 221);
+    justify-content: space-around;
+}
+
+.server:hover{
+    cursor: pointer;
+    background-color: rgb(185, 185, 185);
+}
+
+.server-field-container {
+    width: 100%;
+    text-align: center;
+}
+

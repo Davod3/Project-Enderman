@@ -16,10 +16,14 @@ class DownloadForm extends Component {
 
 
     render() {
-        return (<Container>
+        return (
+        <Container>
+
+            <p className='step-instruction'>Please insert the download url for your server files: <br/><i>(or leave blank if already downloaded)</i></p>
+
             <Form className='form-group'>
                 <Form.Group as={Col} controlId="formURL">
-                    <Form.Label className="label">Download Url: </Form.Label>
+                    <Form.Label className="label">URL: </Form.Label>
                     <Form.Control
                         type="text"
                         defaultValue={this.props.inputValues.url}

@@ -1,0 +1,96 @@
+.server-details-container {
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 10%);
+    width: 30vw;
+    text-align: center;
+
+}
+
+.server-name{
+    font-size: 3rem;
+}
+
+.controls {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    margin-top: 3vh;
+
+}
+
+.control-btn {
+
+    width: 7vw;
+    height: 6vh;
+    border: solid;
+    border-width: 1px;
+    border-radius: 5px;
+
+}
+
+.control-btn:hover{
+    cursor: pointer;
+}
+
+.running {
+    color: #88FF88;
+}
+
+.offline {
+    color: red;
+}
+
+.console-container {
+
+    width: 100%;
+    border: solid;
+    height: 30vh;
+    margin-top: 4vh;
+    border-radius: 20px;
+    border-width: 1px;
+}
+
+.start {
+    background-color: #51fa51;
+}
+
+.start:hover {
+    background-color: #22c022; 
+}
+
+.stop {
+    background-color: rgb(255, 72, 72);
+}
+
+.stop:hover {
+    background-color: red;
+}
+
+.delete {
+    background-color: rgb(255, 180, 82);
+}
+
+.delete:hover {
+    background-color: rgb(255, 145, 0);
+}
+
+.edit {
+    background-color: rgb(0, 255, 255);
+}
+
+.edit:hover{
+    background-color: rgb(0, 182, 182);
+}
+
+.restore{
+    background-color: rgb(255, 0, 255);
+}
+
+.restore:hover{
+    background-color: rgb(167, 0, 167);
+}

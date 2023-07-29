@@ -92,6 +92,8 @@ class ScriptForm extends Component {
         }
 
         return (<Container>
+
+            <p className='step-instruction'>Please select the start script for your server: </p>
             
             <div id = 'file-list-header'>
 

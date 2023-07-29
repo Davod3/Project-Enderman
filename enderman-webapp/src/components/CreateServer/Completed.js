@@ -17,8 +17,10 @@ class Completed extends Component {
         return (<Container id='finished-container'>
 
                 <Icon.Check2Circle size={150} color='#88FF88'></Icon.Check2Circle>
+
+                <p className='step-instruction'>Server successfully created! Please continue to the dashboard.</p>
            
-                <Button className='next-btn' onClick={this.finish}>Next</Button>
+                <Button className='next-btn' onClick={this.finish}>Finish</Button>
             
         </Container>
         );
