@@ -34,7 +34,7 @@ public class Commands {
     @ShellMethod(key="create-server")
     public long createServer(@ShellOption String name, @ShellOption String port) {
 
-        CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo);
+        CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo, this.backupRepo);
 
         return createSvHandler.createServer(name, port);
     }
@@ -42,7 +42,7 @@ public class Commands {
     @ShellMethod(key="download-server")
     public boolean downloadServer(@ShellOption String url) {
 
-        CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo);
+        CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo, this.backupRepo);
         boolean result = false;
 
         try {
@@ -143,7 +143,7 @@ public class Commands {
     @ShellMethod(key="select-script")
     public boolean selectScript(@ShellOption long id, @ShellOption String path) {
 
-        CreateServerHandler createServer = new CreateServerHandler(serverRepo);
+        CreateServerHandler createServer = new CreateServerHandler(this.serverRepo, this.backupRepo);
 
         try {
             return createServer.selectStartScript(path, id);

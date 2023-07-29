@@ -46,4 +46,9 @@ public class CreateApiController {
     public ResponseDTO<ServerDTO> getServer(@PathVariable("id") long serverID) {
         return this.createService.getServer(serverID);
     }
+
+    @DeleteMapping("/server/{id}")
+    public ResponseDTO<Boolean> deleteServer(@PathVariable("id") long serverID) {
+        return this.createService.deleteServer(serverID);
+    }
 }
