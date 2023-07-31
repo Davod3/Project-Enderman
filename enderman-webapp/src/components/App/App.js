@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../../src/logo.png';
 import CreateServer from '../CreateServer/CreateServer';
+import ServerProperties from '../ServerProperties/ServerProperties';
 
 function setToken(userToken) {
 
@@ -67,6 +68,8 @@ function App() {
         <Route path='/server/:id' element={<ServerDetails/>}/>
 
         <Route path='/createserver' element={<CreateServer />}/>
+
+        <Route path='/server/:id/properties' element={<ServerProperties />}/>
 
       </Routes>
     </BrowserRouter>

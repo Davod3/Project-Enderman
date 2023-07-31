@@ -172,6 +172,10 @@ export default function ServerDetails() {
 
     }
 
+    function editProperties() {
+        window.location.href = `/server/${id}/properties`;
+    }
+
 
     return(
         <div className='server-details-container'>
@@ -192,7 +196,7 @@ export default function ServerDetails() {
 
                 <button className='control-btn start' disabled={server===undefined?'':server.running || isLoading} onClick={startServer}>Start</button>
                 <button className='control-btn stop' disabled={server===undefined?'':!server.running || isLoading} onClick={stopServer}>Stop</button>
-                <button className='control-btn edit' disabled={isLoading}>Edit Properties</button>
+                <button className='control-btn edit' disabled={isLoading} onClick={editProperties}>Edit Properties</button>
                 <button className='control-btn delete' disabled={isLoading} onClick={removeServer}>Delete Server</button>
                 <button className='control-btn start' disabled={isLoading} onClick={backupServer}>Create Backup</button>
                 <button className='control-btn restore' disabled={isLoading} onClick={restoreServer}>Restore Backup</button>
