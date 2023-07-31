@@ -81,7 +81,7 @@ export async function downloadServer(serverID, serverURL, setLoading, username, 
         }
 
         setLoading(false);
-        return data.result; //Boolean
+        return data.result; //Number
 
         
 

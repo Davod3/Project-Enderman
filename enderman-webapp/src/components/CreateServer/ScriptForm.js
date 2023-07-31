@@ -17,7 +17,7 @@ class ScriptForm extends Component {
 
         let username = localStorage.getItem('user');
         let token = localStorage.getItem('token');
-        let id = 1//this.props.inputValues.id;
+        let id = this.props.inputValues.id;
 
         //Call navigation service to list server files
         let directoryList = await listFiles(id, username, token);

@@ -60,8 +60,6 @@ class MultiStepForm extends Component {
 
         if(result) {
 
-            console.log('this happens');
-
             this.setState({
                 step : step + 1
             })
@@ -96,6 +94,7 @@ class MultiStepForm extends Component {
         }
 
         this.setState({id : response})
+        console.log('After create: ' + this.state.id);
         return true;
 
     }
@@ -121,11 +120,15 @@ class MultiStepForm extends Component {
             
         }
 
+        console.log('After download: ' + this.state.id);
+
         return response;
 
     }
 
     setScript = async (serverID, path) => {
+
+        console.log('While setting script: ' + serverID);
 
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
