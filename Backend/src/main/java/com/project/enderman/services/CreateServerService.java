@@ -23,12 +23,14 @@ public class CreateServerService {
 
     @Autowired private ServerDataRepository serverRepo;
 
+    @Autowired private ServerBackupRepository backupRepo;
+
     public ResponseDTO<Long> createServer(String name, String port) {
 
         ResponseDTO<Long> response = new ResponseDTO<>();
 
         try {
-            long result = new CreateServerHandler(this.serverRepo).createServer(name,port);
+            long result = new CreateServerHandler(this.serverRepo, this.backupRepo).createServer(name,port);
             response.setResult(result);
         } catch (DataIntegrityViolationException e) {
             response.setErrorMsg("Server name already exists. Please use a different one!");
@@ -44,7 +46,7 @@ public class CreateServerService {
 
         try {
 
-            boolean result = new CreateServerHandler(this.serverRepo).downloadServer(url,serverID);
+            boolean result = new CreateServerHandler(this.serverRepo, this.backupRepo).downloadServer(url,serverID);
             response.setResult(result);
 
         } catch (IOException e) {
@@ -66,7 +68,7 @@ public class CreateServerService {
 
         try {
 
-            boolean result = new CreateServerHandler(this.serverRepo).selectStartScript(filePath, serverID);
+            boolean result = new CreateServerHandler(this.serverRepo, this.backupRepo).selectStartScript(filePath, serverID);
             response.setResult(result);
 
         } catch (IOException e) {
@@ -113,6 +115,25 @@ public class CreateServerService {
         } else {
 
             response.setErrorMsg("No server with the given id.");
+
+        }
+
+        return response;
+
+    }
+
+    public ResponseDTO<Boolean> deleteServer(long id) {
+
+        ResponseDTO<Boolean> response = new ResponseDTO<>();
+
+        try {
+
+            boolean result = new CreateServerHandler(this.serverRepo, this.backupRepo).deleteServer(id);
+            response.setResult(result);
+
+        } catch (ServerStatusException e) {
+
+            response.setErrorMsg(e.getMessage());
 
         }
 

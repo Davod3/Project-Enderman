@@ -1,8 +1,11 @@
 package com.project.enderman.handlers;
 
+import com.project.enderman.entities.ServerBackup;
 import com.project.enderman.entities.ServerData;
+import com.project.enderman.exceptions.FailedBackupException;
 import com.project.enderman.exceptions.MissingFileException;
 import com.project.enderman.exceptions.ServerStatusException;
+import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
 import org.apache.catalina.Server;
@@ -17,8 +20,11 @@ public class CreateServerHandler {
 
     private final ServerDataRepository serverRepo;
 
-    public CreateServerHandler(ServerDataRepository serverRepo) {
+    private final ServerBackupRepository backupRepo;
+
+    public CreateServerHandler(ServerDataRepository serverRepo, ServerBackupRepository backupRepo) {
         this.serverRepo = serverRepo;
+        this.backupRepo = backupRepo;
     }
 
     public long createServer(String name, String port) throws DataIntegrityViolationException {
@@ -88,6 +94,47 @@ public class CreateServerHandler {
         throw new ServerStatusException("Server does not exist!");
     }
 
+    public boolean deleteServer(long serverID) throws ServerStatusException {
+
+        Optional<ServerData> maybeSv = serverRepo.findById(serverID);
+
+        if(maybeSv.isPresent()){
+
+                ServerData sv = maybeSv.get();
+
+                ServerBackup backup = sv.getBackup();
+
+                if(backup != null) {
+                    //Server has backup. Delete it
+
+                    try {
+
+                        boolean result = new BackupServerHandler(serverRepo, backupRepo).removeBackup(serverID);
+
+                    } catch (FailedBackupException e) {
+
+                        System.out.println(e.getMessage());
+
+                    }
+                }
+
+                if(sv.isInstalled()){
+
+                    //Delete Server Folder
+                    deleteFolder(new File(sv.getFolder()));
+
+                }
+
+                //Delete sv from DB
+                serverRepo.delete(sv);
+
+                return true;
+        }
+
+        throw new ServerStatusException("Server does not exist!");
+
+    }
+
     private void setPort(ServerData sv, String port) throws IOException {
 
         //Set server.properties at parent folder (must be root folder)
@@ -122,6 +169,20 @@ public class CreateServerHandler {
 
         }
 
+    }
+
+    private boolean deleteFolder(File folder){
+
+        File[] contents = folder.listFiles();
+
+        if(contents != null) {
+
+            for(File f : contents) {
+                deleteFolder(f);
+            }
+        }
+
+        return folder.delete();
     }
 
 }
