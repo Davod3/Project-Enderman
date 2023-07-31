@@ -3,6 +3,7 @@ import './ServerDetails.css'
 import * as Icon from 'react-bootstrap-icons';
 import { useParams } from 'react-router-dom';
 import { getServer } from '../../services/CreateService';
+import { start, stop } from '../../services/RunService';
 
 async function loadServer(id) {
 
@@ -36,8 +37,36 @@ export default function ServerDetails() {
 
     }, []);
 
-    
-    console.log(server);
+    async function startServer() {
+
+        let username = localStorage.getItem('user');
+        let token = localStorage.getItem('token');
+
+        let result = await start(server.id, username, token);
+
+        if(!result) {
+            alert('Failed to start server!');
+        }
+        
+        window.location.reload();
+
+    }
+
+    async function stopServer() {
+
+        let username = localStorage.getItem('user');
+        let token = localStorage.getItem('token');
+
+        let result = await stop(server.id, username, token);
+
+        if(!result) {
+            alert('Failed to stop server!');
+        }
+
+        window.location.reload();
+
+    }
+
 
     return(
         <div className='server-details-container'>
@@ -50,14 +79,14 @@ export default function ServerDetails() {
 
                 <p>Port: {server===undefined?'':server.port}</p>
                 <p>Downloaded: {server===undefined?'':server.installed.toString()}</p>
-                <p>Start Script: {server===undefined?'':server.startPath} <Icon.Pencil/> </p>
+                <p>Start Script: {server===undefined?'':server.startPath}<Icon.Pencil/> </p>
 
             </div>
 
             <div className='controls'>
 
-                <button className='control-btn start'>Start</button>
-                <button className='control-btn stop'>Stop</button>
+                <button className='control-btn start' disabled={server===undefined?'':server.running} onClick={startServer}>Start</button>
+                <button className='control-btn stop' disabled={server===undefined?'':!server.running} onClick={stopServer}>Stop</button>
                 <button className='control-btn edit'>Edit Properties</button>
                 <button className='control-btn delete'>Delete Server</button>
                 <button className='control-btn start'>Create Backup</button>
