@@ -220,5 +220,47 @@ export async function getServer(serverID, username, token){
 
 }
 
+export async function deleteServer(serverID, username, token){
+
+    return fetch( `${url}/server/${serverID}`, {
+        method: 'DELETE',
+        headers: {
+            'X-API-USER': username,
+            'X-API-KEY': token
+        }
+    })
+    .then(async response => {
+
+        if(!response.ok) {
+            
+            let content = await response.text();
+
+            alert(content);
+
+            return null;
+        }
+
+        //Process response
+        const data = await response.json();
+
+        if(data.errorMsg !== null) {
+
+            alert(data.errorMsg);
+            return null;
+
+        }
+
+        return data.result; //Boolean
+    })
+    .catch(err => {
+
+        console.log("Erro: " + err);
+        
+    });
+
+    
+
+}
+
 
 
