@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getProperties } from "../../services/EditService";
+import { getProperties, sendProperties } from "../../services/EditService";
 import { useState, useEffect } from "react";
 import './ServerProperties.css'
 import PropertyDisplay from "./PropertyDisplay";
@@ -23,6 +23,7 @@ export default function ServerDetails() {
 
     const { id } = useParams();
     const [properties, setProperties] = useState();
+    const [changedProps, setChangedProps] = useState();
 
     useEffect(() => {
 
@@ -32,6 +33,7 @@ export default function ServerDetails() {
 
             if (mounted) {
                 setProperties(properties);
+                setChangedProps({});
             }
 
         })
@@ -44,6 +46,28 @@ export default function ServerDetails() {
         window.location.href = `/server/${id}`
     }
 
+    async function save() {
+
+        const username = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        //Send properties map back to server
+
+        let result = await sendProperties(id, changedProps, username, token);
+
+        if(result){
+            alert('Successfully changed server properties!');
+            goBack();
+        }
+
+    }
+
+    function handleChange(event) {
+
+        changedProps[event.target.name] = event.target.value;
+
+    }
+
     return (
 
         <div className="page-container">
@@ -54,7 +78,7 @@ export default function ServerDetails() {
 
                 <div className="list-container">
 
-                    {properties === undefined ? '' : Array.from(properties.entries()).map(entry => <PropertyDisplay name={entry[0]} value={entry[1]} />)}
+                    {properties === undefined ? '' : Array.from(properties.entries()).map(entry => <PropertyDisplay name={entry[0]} value={entry[1]} handleChange={handleChange}/>)}
 
                 </div>
 
@@ -63,7 +87,7 @@ export default function ServerDetails() {
             <div className="btn-container">
 
                 <button onClick={goBack}>Back</button>
-                <button>Save</button>
+                <button onClick={save}>Save</button>
 
             </div>
 
