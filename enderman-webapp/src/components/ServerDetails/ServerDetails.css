@@ -104,3 +104,14 @@
     cursor: pointer;
     font-size: larger;
 }
+
+#back-btn {
+
+    height: 6vh;
+    width: 6vw;
+    margin-top: 1vh;
+}
+
+#back-btn:hover {
+    cursor: pointer;
+}

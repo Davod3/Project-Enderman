@@ -85,6 +85,11 @@ class ScriptForm extends Component {
 
     };
 
+    back = (e) => {
+        e.preventDefault();
+        window.location.href = '/dashboard';
+    }
+
     render() {
 
         if(!this.state.isLoaded) {
@@ -110,7 +115,12 @@ class ScriptForm extends Component {
 
             <p>Start Script: {this.state.selectedFile}</p>
 
-            <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
+            <div className='btn-wrapper'>
+
+                    <Button className='next-btn' onClick={this.back}>Cancel</Button>
+                    <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
+
+            </div>
 
         </Container>
         );

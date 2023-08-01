@@ -6,7 +6,7 @@ class DetailsForm extends Component {
 
     back = (e) => {
         e.preventDefault();
-        this.props.prevStep();
+        window.location.href = '/dashboard';
     }
 
     saveAndContinue = (e) => {
@@ -45,7 +45,13 @@ class DetailsForm extends Component {
                     />
                 </Form.Group>
 
-                <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
+                <div className='btn-container'>
+
+                    <Button className='next-btn' onClick={this.back}>Cancel</Button>
+                    <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
+
+                </div>
+                
             </Form>
         </Container>
         );

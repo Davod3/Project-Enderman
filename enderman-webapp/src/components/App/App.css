@@ -31,3 +31,11 @@ header button:hover {
 header h1 {
   color: whitesmoke;
 }
+
+#title:hover {
+  cursor: pointer;
+}
+
+#enderman-img:hover{
+  cursor: pointer;
+}

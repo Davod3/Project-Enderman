@@ -36,6 +36,10 @@ function logout() {
 
 }
 
+function goHome() {
+  window.location.href = '/';
+}
+
 function App() {
   
   const token = getToken();
@@ -50,9 +54,9 @@ function App() {
 
     <header>
 
-      <img src={logo} alt='Enderman holding a minecraft dirt block'></img>
+      <img src={logo} alt='Enderman holding a minecraft dirt block' id="enderman-img" onClick={goHome}></img>
 
-      <h1>Project Enderman</h1>
+      <h1 id='title' onClick={goHome}>Project Enderman</h1>
 
       <button onClick={logout}>Logout</button>
 

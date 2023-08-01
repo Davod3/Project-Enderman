@@ -160,8 +160,6 @@ class MultiStepForm extends Component {
             this.setState({id:param_id, step: parseInt(param_step), mounted: true})
 
         }
-
-        console.log(step);
         
         switch(step) {
         case 1:

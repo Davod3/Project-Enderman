@@ -203,6 +203,10 @@ export default function ServerDetails() {
 
     }
 
+    function goBack() {
+        window.location.href = '/dashboard'
+    }
+
 
     return(
         <div className='server-details-container'>
@@ -237,6 +241,8 @@ export default function ServerDetails() {
             <div className='console-container'>
 
             </div>
+
+            <button id='back-btn' onClick={goBack}>Back</button>
 
         </div>
     );
