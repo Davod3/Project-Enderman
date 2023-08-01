@@ -6,6 +6,7 @@ import { getServer, deleteServer } from '../../services/CreateService';
 import { start, stop } from '../../services/RunService';
 import { createBackup, restoreBackup, removeBackup } from '../../services/BackupService';
 import animation from "../../spinner.gif"
+import Terminal from 'react-console-emulator';
 
 async function loadServer(id) {
 
@@ -34,6 +35,14 @@ export default function ServerDetails() {
     const { id } = useParams();
     const [server, setServer] = useState();
     const [isLoading, setLoading] = useState();
+
+    const commands = {
+        echo: {
+            description: 'Echo test command',
+            usage: 'echo <string>',
+            fn: (...args) => args.join(' ')
+        }
+    }
 
     useEffect( () => {
 
@@ -250,6 +259,8 @@ export default function ServerDetails() {
             {isLoading?<img id='loading-animation' src={animation} alt='Loading animation'></img>:<></>}
 
             <div className='console-container'>
+
+                <Terminal commands={commands} promptLabel={server===undefined?'':'Minecraft@' + server.id + ':'}/>
 
             </div>
 

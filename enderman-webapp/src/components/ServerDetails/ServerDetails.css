@@ -47,12 +47,9 @@
 
 .console-container {
 
-    width: 100%;
-    border: solid;
-    height: 30vh;
+    width: 100%; 
     margin-top: 2vh;
-    border-radius: 20px;
-    border-width: 1px;
+    text-align: left;
 }
 
 .start {
