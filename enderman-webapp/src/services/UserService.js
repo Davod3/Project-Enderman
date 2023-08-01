@@ -21,8 +21,8 @@ export async function verifyToken(username, token){
         })
         .catch(err => {
 
-            console.log("Erro: " + err);
-            return false
+            alert(err);
+            return false;
             
         });
 

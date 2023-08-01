@@ -30,7 +30,8 @@ export async function start(serverID, username, token){
         })
         .catch(err => {
 
-            console.log("Erro: " + err);
+            alert(err);
+            return null;
             
         });
 
@@ -65,7 +66,8 @@ export async function stop(serverID, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 

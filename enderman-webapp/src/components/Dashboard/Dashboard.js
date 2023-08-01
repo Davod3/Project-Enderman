@@ -21,7 +21,11 @@ class Dashboard extends Component {
         const username = localStorage.getItem('user');
         const token = localStorage.getItem('token');
 
-        const servers = await listServers(username, token);
+        let servers = await listServers(username, token);
+
+        if(servers===null || servers===undefined){
+            servers = [];
+        }
 
         this.setState({serverList : servers, isLoaded: true});
 

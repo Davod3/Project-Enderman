@@ -30,7 +30,8 @@ export async function createBackup(serverID, username, token){
         })
         .catch(err => {
 
-            console.log("Erro: " + err);
+            alert(err);
+            return null;
             
         });
 
@@ -65,7 +66,8 @@ export async function removeBackup(serverID, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
@@ -100,7 +102,8 @@ export async function restoreBackup(serverID, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 

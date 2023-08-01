@@ -37,7 +37,8 @@ export async function createServer(serverName, serverPort, username, token){
         })
         .catch(err => {
 
-            console.log("Erro: " + err);
+            alert(err);
+            return null;
             
         });
 
@@ -88,8 +89,9 @@ export async function downloadServer(serverID, serverURL, setLoading, username, 
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
         setLoading(false);
+        alert(err);
+        return null;
         
     });
 
@@ -130,7 +132,8 @@ export async function setScript(serverID, scriptPath, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
@@ -170,7 +173,8 @@ export async function listServers(username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
@@ -212,7 +216,8 @@ export async function getServer(serverID, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
@@ -254,7 +259,8 @@ export async function deleteServer(serverID, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
