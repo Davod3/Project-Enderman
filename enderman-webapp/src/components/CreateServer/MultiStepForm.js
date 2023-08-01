@@ -5,6 +5,7 @@ import ScriptForm from './ScriptForm';
 import Completed from './Completed';
 import { createServer, downloadServer, setScript } from '../../services/CreateService';
 import Downloading from './Downloading';
+import { useSearchParams } from 'react-router-dom';
 
 class MultiStepForm extends Component {
     state = {
@@ -15,6 +16,7 @@ class MultiStepForm extends Component {
         url: '',
         hasUrl: false,
         script: '',
+        mounted: false
     }
 
     setLoading = (runLoad) => {
@@ -144,8 +146,22 @@ class MultiStepForm extends Component {
     }
 
     render(){
-        const { id, step, serverName, serverPort, url, hasUrl, script } = this.state;
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const param_id = urlParams.get('id');
+        const param_step = urlParams.get('step');
+
+        let { id, step, serverName, serverPort, url, hasUrl, script } = this.state;
         const inputValues = { id, serverName, serverPort, url, hasUrl, script };
+
+        if(param_id !== null && param_step !== null && !this.state.mounted && (param_step === '2' || param_step === '3')) {
+
+            this.setState({id:param_id, step: parseInt(param_step), mounted: true})
+
+        }
+
+        console.log(step);
         
         switch(step) {
         case 1:

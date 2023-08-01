@@ -176,6 +176,33 @@ export default function ServerDetails() {
         window.location.href = `/server/${id}/properties`;
     }
 
+    function finishDownloading() {
+
+        if(!server.installed){
+            //Redirect to download
+            window.location.href = `/createserver?id=${server.id}&step=2`;
+
+        } else {
+
+            alert('Server is already downloaded!');
+        }
+
+    }
+
+    function editScript() {
+
+        if(!server.installed){
+            //Redirect to download
+            alert('The server is not yet installed. To select a start script first download the server.')
+            window.location.href = `/createserver?id=${server.id}&step=2`;
+
+        } else {
+
+            window.location.href = `/createserver?id=${server.id}&step=3`;
+        }
+
+    }
+
 
     return(
         <div className='server-details-container'>
@@ -187,8 +214,8 @@ export default function ServerDetails() {
             <div className='server-data'>
 
                 <p>Port: {server===undefined?'':server.port}</p>
-                <p>Downloaded: {server===undefined?'':server.installed.toString()}</p>
-                <p>Start Script: {server===undefined?'':server.startPath}<Icon.Pencil/> </p>
+                <p>Downloaded: {server===undefined?'':server.installed.toString()} <Icon.Download className='action-btn' onClick={finishDownloading}/></p>
+                <p>Start Script: {server===undefined?'':server.startPath}<Icon.Pencil className='action-btn' onClick={editScript}/> </p>
 
             </div>
 
