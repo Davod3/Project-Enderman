@@ -22,6 +22,10 @@ class ScriptForm extends Component {
         //Call navigation service to list server files
         let directoryList = await listFiles(id, username, token);
 
+        if(directoryList === null || directoryList === undefined) {
+            directoryList = [];
+        }
+
         this.setState({loadedDirectory : directoryList, isLoaded : true });
 
     }

@@ -12,7 +12,18 @@ async function loadServer(id) {
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
-    const server = await getServer(id, username, token);
+    let server = await getServer(id, username, token);
+
+    if(server === null || server === undefined) {
+        server={
+            id: -1,
+            installed: false,
+            name: '',
+            port: '',
+            running: false,
+            startPath: ''
+            }
+    }
     
     return server;
     

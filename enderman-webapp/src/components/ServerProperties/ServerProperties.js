@@ -11,6 +11,10 @@ async function loadProperties(id) {
 
     let properties = await getProperties(id, username, token);
 
+    if(properties === null || properties === undefined) {
+        properties = [];
+    }
+
     const map = new Map();
 
     properties.map(entry => map.set(Object.keys(entry)[0], Object.values(entry)[0]));
