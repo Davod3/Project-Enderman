@@ -4,6 +4,7 @@ import com.project.enderman.entities.FileDTO;
 import com.project.enderman.entities.User;
 import com.project.enderman.exceptions.FailedBackupException;
 import com.project.enderman.exceptions.MissingFileException;
+import com.project.enderman.exceptions.RemoteConsoleException;
 import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.handlers.*;
 import com.project.enderman.repositories.ServerBackupRepository;
@@ -291,6 +292,22 @@ public class Commands {
         for(User u : users) {
             System.out.println(u.getId() + "--" + u.getUsername() + "--" + u.getToken());
         }
+
+    }
+
+    @ShellMethod(key="exec")
+    public void executeCommand( @ShellOption long serverID, @ShellOption String command) {
+
+        RemoteConsoleHandler remoteHandler = new RemoteConsoleHandler(this.serverRepo);
+        String result;
+
+        try {
+            result = remoteHandler.execute(command, serverID);
+        } catch (ServerStatusException | RemoteConsoleException e) {
+            result = e.getMessage();
+        }
+
+        System.out.println(result);
 
     }
 
