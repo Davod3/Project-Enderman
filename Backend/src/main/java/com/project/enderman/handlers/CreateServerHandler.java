@@ -8,13 +8,11 @@ import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerBackupRepository;
 import com.project.enderman.repositories.ServerDataRepository;
 import com.project.enderman.utils.Downloader;
-import org.apache.catalina.Server;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Optional;
+import java.util.Properties;
 
 public class CreateServerHandler {
 
@@ -82,7 +80,7 @@ public class CreateServerHandler {
                 serverRepo.save(sv);
 
                 acceptEula(sv);
-                setPort(sv, sv.getPort());
+                setProperties(sv, sv.getPort());
 
                 return true;
 
@@ -135,19 +133,40 @@ public class CreateServerHandler {
 
     }
 
-    private void setPort(ServerData sv, String port) throws IOException {
+    private void setProperties(ServerData sv, String port) throws IOException {
 
-        //Set server.properties at parent folder (must be root folder)
+        //Check if server.properties already exists
         String propertiesPath = sv.getMainFolder() + "/server.properties";
         File serverProperties = new File(propertiesPath);
 
         if(!serverProperties.exists()) {
+
+            //If it doesn't exist, create it
 
             serverProperties.createNewFile();
 
             FileWriter writer = new FileWriter(propertiesPath);
             writer.write("server-port=" + port);
             writer.close();
+
+        } else {
+
+            //If it exists, load it and change it
+
+            //Load
+            Properties props = new Properties();
+            FileInputStream fis = new FileInputStream(propertiesPath);
+            props.load(fis);
+
+            //Edit
+            props.setProperty("server-port", port);
+
+            //Save
+            FileOutputStream fos = new FileOutputStream(propertiesPath);
+            props.store(fos, "");
+
+            fis.close();
+            fos.close();
 
         }
 
