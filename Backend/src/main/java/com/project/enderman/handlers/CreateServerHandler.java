@@ -11,10 +11,14 @@ import com.project.enderman.utils.Downloader;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Properties;
 
 public class CreateServerHandler {
+
+    private final static String EOL = System.lineSeparator();
 
     private final ServerDataRepository serverRepo;
 
@@ -81,6 +85,8 @@ public class CreateServerHandler {
 
                 acceptEula(sv);
                 setProperties(sv, sv.getPort());
+                editScript(filePath);
+
 
                 return true;
 
@@ -202,6 +208,23 @@ public class CreateServerHandler {
         }
 
         return folder.delete();
+    }
+
+    private void editScript(String path) throws IOException {
+
+        String changeDir = "cd $(dirname $0)";
+
+        String scriptContent = Files.readString(Path.of(path));
+
+        if(!scriptContent.contains(changeDir)) {
+
+            String result = changeDir + EOL + scriptContent;
+
+            FileWriter writer = new FileWriter(path);
+            writer.write(result);
+            writer.close();
+
+        }
     }
 
 }
