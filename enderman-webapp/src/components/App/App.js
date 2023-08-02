@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../../src/logo.png';
 import CreateServer from '../CreateServer/CreateServer';
+import ServerProperties from '../ServerProperties/ServerProperties';
 
 function setToken(userToken) {
 
@@ -35,6 +36,10 @@ function logout() {
 
 }
 
+function goHome() {
+  window.location.href = '/';
+}
+
 function App() {
   
   const token = getToken();
@@ -49,9 +54,9 @@ function App() {
 
     <header>
 
-      <img src={logo} alt='Enderman holding a minecraft dirt block'></img>
+      <img src={logo} alt='Enderman holding a minecraft dirt block' id="enderman-img" onClick={goHome}></img>
 
-      <h1>Project Enderman</h1>
+      <h1 id='title' onClick={goHome}>Project Enderman</h1>
 
       <button onClick={logout}>Logout</button>
 
@@ -67,6 +72,8 @@ function App() {
         <Route path='/server/:id' element={<ServerDetails/>}/>
 
         <Route path='/createserver' element={<CreateServer />}/>
+
+        <Route path='/server/:id/properties' element={<ServerProperties />}/>
 
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import animation from "../../downloading-animation.gif"
+import animation from "../../spinner.gif"
 
 
 class Downloading extends Component {
@@ -10,7 +10,8 @@ class Downloading extends Component {
         
         <Container>
 
-            <img src={animation} alt='Downloading...'></img>
+            <img src={animation} alt='Downloading animation'></img>
+            <p>Downloading server...</p>
 
         </Container>
 

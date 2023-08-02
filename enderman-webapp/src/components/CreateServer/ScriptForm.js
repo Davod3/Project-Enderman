@@ -17,10 +17,14 @@ class ScriptForm extends Component {
 
         let username = localStorage.getItem('user');
         let token = localStorage.getItem('token');
-        let id = 1//this.props.inputValues.id;
+        let id = this.props.inputValues.id;
 
         //Call navigation service to list server files
         let directoryList = await listFiles(id, username, token);
+
+        if(directoryList === null || directoryList === undefined) {
+            directoryList = [];
+        }
 
         this.setState({loadedDirectory : directoryList, isLoaded : true });
 
@@ -85,6 +89,11 @@ class ScriptForm extends Component {
 
     };
 
+    back = (e) => {
+        e.preventDefault();
+        window.location.href = '/dashboard';
+    }
+
     render() {
 
         if(!this.state.isLoaded) {
@@ -110,7 +119,12 @@ class ScriptForm extends Component {
 
             <p>Start Script: {this.state.selectedFile}</p>
 
-            <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
+            <div className='btn-wrapper'>
+
+                    <Button className='next-btn' onClick={this.back}>Cancel</Button>
+                    <Button className='next-btn' onClick={this.saveAndContinue}>Next</Button>
+
+            </div>
 
         </Container>
         );

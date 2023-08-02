@@ -1,10 +1,10 @@
 import { url } from "./ApiProperties"
 
 
-export async function listFiles(serverID, username, token){
+export async function createBackup(serverID, username, token){
 
-        return fetch( `${url}/server/${serverID}/files`, {
-            method: 'GET',
+        return fetch( `${url}/server/${serverID}/backup`, {
+            method: 'POST',
             headers: {
                 'X-API-USER': username,
                 'X-API-KEY': token
@@ -26,7 +26,7 @@ export async function listFiles(serverID, username, token){
 
             }
 
-            return data.result; //Array
+            return data.result; //Boolean
         })
         .catch(err => {
 
@@ -37,10 +37,10 @@ export async function listFiles(serverID, username, token){
 
 }
 
-export async function enterFolder(path, username, token){
+export async function removeBackup(serverID, username, token){
 
-    return fetch( `${url}/folder/enter?path=${path}`, {
-        method: 'GET',
+    return fetch( `${url}/server/${serverID}/backup`, {
+        method: 'DELETE',
         headers: {
             'X-API-USER': username,
             'X-API-KEY': token
@@ -62,7 +62,7 @@ export async function enterFolder(path, username, token){
 
         }
 
-        return data.result; //Array
+        return data.result; //Boolean
     })
     .catch(err => {
 
@@ -71,14 +71,12 @@ export async function enterFolder(path, username, token){
         
     });
 
-    
-
 }
 
-export async function exitFolder(path, username, token){
+export async function restoreBackup(serverID, username, token){
 
-    return fetch( `${url}/folder/exit?path=${path}`, {
-        method: 'GET',
+    return fetch( `${url}/server/${serverID}/backup`, {
+        method: 'PUT',
         headers: {
             'X-API-USER': username,
             'X-API-KEY': token
@@ -100,7 +98,7 @@ export async function exitFolder(path, username, token){
 
         }
 
-        return data.result; //Array
+        return data.result; //Boolean
     })
     .catch(err => {
 
@@ -109,8 +107,4 @@ export async function exitFolder(path, username, token){
         
     });
 
-    
-
 }
-
-

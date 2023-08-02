@@ -37,7 +37,8 @@ export async function createServer(serverName, serverPort, username, token){
         })
         .catch(err => {
 
-            console.log("Erro: " + err);
+            alert(err);
+            return null;
             
         });
 
@@ -81,15 +82,16 @@ export async function downloadServer(serverID, serverURL, setLoading, username, 
         }
 
         setLoading(false);
-        return data.result; //Boolean
+        return data.result; //Number
 
         
 
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
         setLoading(false);
+        alert(err);
+        return null;
         
     });
 
@@ -130,7 +132,8 @@ export async function setScript(serverID, scriptPath, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
@@ -170,7 +173,8 @@ export async function listServers(username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
         
     });
 
@@ -212,7 +216,51 @@ export async function getServer(serverID, username, token){
     })
     .catch(err => {
 
-        console.log("Erro: " + err);
+        alert(err);
+        return null;
+        
+    });
+
+    
+
+}
+
+export async function deleteServer(serverID, username, token){
+
+    return fetch( `${url}/server/${serverID}`, {
+        method: 'DELETE',
+        headers: {
+            'X-API-USER': username,
+            'X-API-KEY': token
+        }
+    })
+    .then(async response => {
+
+        if(!response.ok) {
+            
+            let content = await response.text();
+
+            alert(content);
+
+            return null;
+        }
+
+        //Process response
+        const data = await response.json();
+
+        if(data.errorMsg !== null) {
+
+            alert(data.errorMsg);
+            return null;
+
+        }
+
+        return data.result; //Boolean
+    })
+    .catch(err => {
+
+        alert(err);
+        return null;
         
     });
 

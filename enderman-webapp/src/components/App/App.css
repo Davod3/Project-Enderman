@@ -15,19 +15,24 @@ header {
 
 /* Style the header links */
 header button {
-  background-color: #ddd;
-  color: black;
   text-align: center;
-  text-decoration: none;
   margin-right: 7vw;
   height: 7vh;
   width: 5vw;
 }
 
 header button:hover {
-  color: rgb(104, 95, 95);
+  cursor: pointer;
 }
 
 header h1 {
   color: whitesmoke;
+}
+
+#title:hover {
+  cursor: pointer;
+}
+
+#enderman-img:hover{
+  cursor: pointer;
 }
