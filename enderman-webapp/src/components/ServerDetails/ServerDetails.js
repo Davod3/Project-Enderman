@@ -7,6 +7,7 @@ import { start, stop } from '../../services/RunService';
 import { createBackup, restoreBackup, removeBackup } from '../../services/BackupService';
 import animation from "../../spinner.gif"
 import Terminal from 'react-console-emulator';
+import { executeCommand } from '../../services/RemoteConsoleService';
 
 async function loadServer(id) {
 
@@ -37,10 +38,10 @@ export default function ServerDetails() {
     const [isLoading, setLoading] = useState();
 
     const commands = {
-        echo: {
-            description: 'Echo test command',
-            usage: 'echo <string>',
-            fn: (...args) => args.join(' ')
+        '.': {
+            description: 'Execute command on server',
+            usage: '. <command>',
+            fn: (...args) => exec(args.join(' '))
         }
     }
 
@@ -59,6 +60,17 @@ export default function ServerDetails() {
         return () => mounted = false;
 
     }, []);
+
+    async function exec(command) {
+
+        let username = localStorage.getItem('user');
+        let token = localStorage.getItem('token');
+
+        let result = await executeCommand(id, command, username, token);
+        
+        return result;
+
+    }
 
     async function startServer() {
 
