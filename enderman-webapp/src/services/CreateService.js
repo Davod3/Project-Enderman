@@ -1,9 +1,9 @@
 import { url} from "./ApiProperties"
 
 
-export async function createServer(serverName, serverPort, username, token){
+export async function createServer(serverName, serverPort, rconPort, username, token){
 
-        return fetch( `${url}/server/create?name=${serverName}&port=${serverPort}`, {
+        return fetch( `${url}/server/create?name=${serverName}&port=${serverPort}&rcon=${rconPort}`, {
             method: 'POST',
             headers: {
                 'X-API-USER': username,
