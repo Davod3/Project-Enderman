@@ -50,6 +50,8 @@
     width: 100%; 
     margin-top: 2vh;
     text-align: left;
+    overflow-y: scroll;
+    height: 32.5vh;
 }
 
 .start {
