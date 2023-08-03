@@ -6,13 +6,14 @@ import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.rcon.RemoteConsole;
 import com.project.enderman.rcon.RemoteConsoleImp;
 import com.project.enderman.repositories.ServerDataRepository;
-import org.apache.catalina.Server;
 
 import java.util.Optional;
 
 public class RemoteConsoleHandler {
 
-    ServerDataRepository serverRepo;
+    private ServerDataRepository serverRepo;
+
+    private static final String RCON_PASSWORD = "plsNoHackerino";
 
     public RemoteConsoleHandler(ServerDataRepository serverRepo) {
         this.serverRepo = serverRepo;
@@ -28,7 +29,7 @@ public class RemoteConsoleHandler {
 
             RemoteConsole console = new RemoteConsoleImp();
 
-            return console.sendCommand(command, "25575", "rootjarda27");
+            return console.sendCommand(command, sv.getRconPort(), RCON_PASSWORD);
 
         }
 

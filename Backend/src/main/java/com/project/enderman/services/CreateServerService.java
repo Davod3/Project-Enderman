@@ -25,15 +25,17 @@ public class CreateServerService {
 
     @Autowired private ServerBackupRepository backupRepo;
 
-    public ResponseDTO<Long> createServer(String name, String port) {
+    public ResponseDTO<Long> createServer(String name, String port, String rconPort) {
 
         ResponseDTO<Long> response = new ResponseDTO<>();
 
         try {
-            long result = new CreateServerHandler(this.serverRepo, this.backupRepo).createServer(name,port);
+            long result = new CreateServerHandler(this.serverRepo, this.backupRepo).createServer(name,port, rconPort);
             response.setResult(result);
         } catch (DataIntegrityViolationException e) {
             response.setErrorMsg("Server name already exists. Please use a different one!");
+        } catch (ServerStatusException e) {
+            response.setErrorMsg(e.getMessage());
         }
 
         return response;

@@ -21,6 +21,9 @@ public class ServerData {
     @NonNull
     private String port;
 
+    @NonNull
+    private String rconPort;
+
     @OneToOne(cascade = CascadeType.ALL)
     private ServerBackup backup;
 
@@ -34,9 +37,10 @@ public class ServerData {
 
     private boolean isRunning;
 
-    public ServerData(String name, String port) {
+    public ServerData(String name, String port, String rconPort) {
         this.name = name;
         this.port = port;
+        this.rconPort = rconPort;
         this.isInstalled = false;
         this.isRunning = false;
     }
@@ -122,5 +126,13 @@ public class ServerData {
 
     public String getStartScript() {
         return this.startScript;
+    }
+
+    public String getRconPort() {
+        return rconPort;
+    }
+
+    public void setRconPort(String rconPort) {
+        this.rconPort = rconPort;
     }
 }
