@@ -43,6 +43,7 @@ public class RunServerHandler {
 
                         //Server started with 0 errors
                         sv.setScreenID(id);
+                        sv.setRunning(true);
                         serverRepo.save(sv);
 
                         return true;
@@ -90,6 +91,9 @@ public class RunServerHandler {
                 Stack<String> lines = executeCommand(command);
 
                 if(lines.size() == 0) {
+
+                    sv.setRunning(false);
+                    this.serverRepo.save(sv);
 
                     return true;
                 } else {

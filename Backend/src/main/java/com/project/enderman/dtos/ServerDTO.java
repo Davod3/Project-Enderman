@@ -1,6 +1,9 @@
 package com.project.enderman.dtos;
 
+import com.project.enderman.entities.ServerBackup;
 import com.project.enderman.entities.ServerData;
+
+import java.util.Date;
 
 public class ServerDTO {
 
@@ -15,6 +18,8 @@ public class ServerDTO {
     private boolean isInstalled;
 
     private String startPath;
+
+    private String lastBackupDate;
 
     public long getId() {
         return id;
@@ -64,9 +69,18 @@ public class ServerDTO {
         this.startPath = startPath;
     }
 
+    public String getLastBackupDate() {
+        return lastBackupDate;
+    }
+
+    public void setLastBackupDate(String lastBackupDate) {
+        this.lastBackupDate = lastBackupDate;
+    }
+
     public static ServerDTO dtofy(ServerData sv) {
 
         ServerDTO dto = new ServerDTO();
+        ServerBackup backup;
 
         dto.setId(sv.getID());
         dto.setName(sv.getName());
@@ -74,6 +88,7 @@ public class ServerDTO {
         dto.setRunning(sv.isRunning());
         dto.setInstalled(sv.isInstalled());
         dto.setStartPath(sv.getStartScript());
+        dto.setLastBackupDate((backup = sv.getBackup())!=null?backup.getBackupDate().toString():null);
 
         return dto;
 
