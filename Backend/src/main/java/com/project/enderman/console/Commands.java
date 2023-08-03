@@ -33,21 +33,25 @@ public class Commands {
     @Autowired private UserService userService;
 
     @ShellMethod(key="create-server")
-    public long createServer(@ShellOption String name, @ShellOption String port) {
+    public long createServer(@ShellOption String name, @ShellOption String port, @ShellOption String rconPort) {
 
         CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo, this.backupRepo);
 
-        return createSvHandler.createServer(name, port);
+        try {
+            return createSvHandler.createServer(name, port, rconPort);
+        } catch (ServerStatusException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @ShellMethod(key="download-server")
-    public boolean downloadServer(@ShellOption String url) {
+    public boolean downloadServer(@ShellOption long id, @ShellOption String url) {
 
         CreateServerHandler createSvHandler = new CreateServerHandler(this.serverRepo, this.backupRepo);
         boolean result = false;
 
         try {
-            result = createSvHandler.downloadServer(url, (long) 1);
+            result = createSvHandler.downloadServer(url, id);
 
         } catch (IOException | ServerStatusException e) {
 

@@ -13,12 +13,16 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
 public class CreateServerHandler {
 
     private final static String EOL = System.lineSeparator();
+
+    private final static String RCON_PASSWORD = "plsNoHackerino";
 
     private final ServerDataRepository serverRepo;
 
@@ -29,9 +33,21 @@ public class CreateServerHandler {
         this.backupRepo = backupRepo;
     }
 
-    public long createServer(String name, String port) throws DataIntegrityViolationException {
+    public long createServer(String name, String port, String rconPort) throws DataIntegrityViolationException, ServerStatusException {
 
-        ServerData sv = new ServerData(name, port);
+        ServerData sv = new ServerData(name, port, rconPort);
+
+        List<String> usedServerPorts = this.serverRepo.getUsedServerPorts();
+
+        List<String> usedRconPorts = this.serverRepo.getUsedRconPorts();
+
+        if(usedServerPorts.contains(port)){
+            throw new ServerStatusException("Server port already in use");
+        }
+
+        if(usedRconPorts.contains(rconPort)){
+            throw new ServerStatusException("Rcon port already in use");
+        }
 
         ServerData saved = serverRepo.save(sv);
 
@@ -152,7 +168,10 @@ public class CreateServerHandler {
             serverProperties.createNewFile();
 
             FileWriter writer = new FileWriter(propertiesPath);
-            writer.write("server-port=" + port);
+            writer.write("server-port=" + port + EOL);
+            writer.write("enable-rcon=true" + EOL);
+            writer.write("rcon.password=" + RCON_PASSWORD + EOL);
+            writer.write("rcon.port=" + sv.getRconPort() + EOL);
             writer.close();
 
         } else {
@@ -166,6 +185,9 @@ public class CreateServerHandler {
 
             //Edit
             props.setProperty("server-port", port);
+            props.setProperty("enable-rcon", "true");
+            props.setProperty("rcon.password", RCON_PASSWORD);
+            props.setProperty("rcon.port", sv.getRconPort());
 
             //Save
             FileOutputStream fos = new FileOutputStream(propertiesPath);

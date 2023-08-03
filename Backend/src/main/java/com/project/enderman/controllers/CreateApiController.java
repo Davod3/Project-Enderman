@@ -18,9 +18,10 @@ public class CreateApiController {
     @PostMapping("/server/create")
     public ResponseDTO<Long> createServer(
             @RequestParam(name="name") String name,
-            @RequestParam(name="port") String port) {
+            @RequestParam(name="port") String port,
+            @RequestParam(name="rcon") String rconPort) {
 
-        return createService.createServer(name, port);
+        return createService.createServer(name, port, rconPort);
     }
 
     @PatchMapping("/server/download/{id}")
