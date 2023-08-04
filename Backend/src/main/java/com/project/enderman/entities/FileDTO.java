@@ -1,7 +1,5 @@
 package com.project.enderman.entities;
 
-import java.io.File;
-
 public class FileDTO {
 
     private String name;

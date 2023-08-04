@@ -1,7 +1,5 @@
 package com.project.enderman.dtos;
 
-import java.io.Serializable;
-
 public class ResponseDTO<T> {
 
     private String errorMsg;

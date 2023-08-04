@@ -3,10 +3,8 @@ package com.project.enderman.handlers;
 import com.project.enderman.entities.ServerData;
 import com.project.enderman.exceptions.ServerStatusException;
 import com.project.enderman.repositories.ServerDataRepository;
-import org.apache.catalina.Server;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Stack;
 

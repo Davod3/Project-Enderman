@@ -3,7 +3,6 @@ package com.project.enderman.controllers;
 import com.project.enderman.dtos.ResponseDTO;
 import com.project.enderman.dtos.ServerDTO;
 import com.project.enderman.services.CreateServerService;
-import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

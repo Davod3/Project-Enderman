@@ -3,8 +3,6 @@ package com.project.enderman.dtos;
 import com.project.enderman.entities.ServerBackup;
 import com.project.enderman.entities.ServerData;
 
-import java.util.Date;
-
 public class ServerDTO {
 
     private long id;

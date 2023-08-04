@@ -1,10 +1,8 @@
 package com.project.enderman.security;
 
 import com.project.enderman.entities.User;
-import com.project.enderman.repositories.UserRepository;
 import com.project.enderman.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -17,7 +15,7 @@ public class AuthenticationService {
 
     private static final String AUTH_USER_HEADER_NAME = "X-API-USER";
 
-    private static final String AUTH_TOKEN = "yeet"; // Just for testing purposes
+    //private static final String AUTH_TOKEN = "yeet"; // Just for testing purposes
 
     public static Authentication getAuthentication(HttpServletRequest request, UserService userService) {
 
@@ -31,7 +29,7 @@ public class AuthenticationService {
         User user = userService.getUser(apiUser);
 
         //user.getToken()
-        if(user == null || !apiKey.equals(AUTH_TOKEN)) {
+        if(user == null || !apiKey.equals(user.getToken())) {
             throw new BadCredentialsException("Invalid API key");
         }
 

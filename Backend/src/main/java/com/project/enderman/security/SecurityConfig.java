@@ -1,6 +1,5 @@
 package com.project.enderman.security;
 
-import com.project.enderman.repositories.UserRepository;
 import com.project.enderman.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -39,13 +34,5 @@ public class SecurityConfig {
 
 
     }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-
-        //Insert endpoints to be ignored by security filter
-        return (web) -> web.ignoring().requestMatchers("/api/login");
-    }
-
 
 }
