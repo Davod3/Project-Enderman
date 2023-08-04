@@ -31,6 +31,35 @@
 
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3vh;
+    font-size: smaller;
+    margin-top: 3vh;
+}
+
+.form-group-container div{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+}
+
+.label-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.control-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 #formName {
     margin-left: 1vw;
 }

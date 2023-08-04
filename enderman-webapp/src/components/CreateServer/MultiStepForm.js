@@ -5,7 +5,6 @@ import ScriptForm from './ScriptForm';
 import Completed from './Completed';
 import { createServer, downloadServer, setScript } from '../../services/CreateService';
 import Downloading from './Downloading';
-import { useSearchParams } from 'react-router-dom';
 
 class MultiStepForm extends Component {
     state = {
@@ -13,6 +12,7 @@ class MultiStepForm extends Component {
         step: 1,
         serverName: '',
         serverPort: '',
+        rconPort: '',
         url: '',
         hasUrl: false,
         script: '',
@@ -31,7 +31,7 @@ class MultiStepForm extends Component {
 
     nextStep = async (data) => {
         
-        const { id, step, serverName, serverPort, url, hasUrl, script } = this.state
+        const { id, step, serverName, serverPort, rconPort, url, hasUrl, script } = this.state
 
         let result = true;
 
@@ -40,7 +40,7 @@ class MultiStepForm extends Component {
             case 1:
                 //Handle case 1 requests
 
-                result = await this.createServer(serverName, serverPort);
+                result = await this.createServer(serverName, serverPort, rconPort);
 
                 break;
             case 2: 
@@ -70,7 +70,7 @@ class MultiStepForm extends Component {
 
     }
 
-    createServer = async (serverName, serverPort) => {
+    createServer = async (serverName, serverPort, rconPort) => {
 
 
         if(serverName===''){
@@ -83,11 +83,16 @@ class MultiStepForm extends Component {
             return false;
         }
 
+        if(rconPort===''){
+            alert('RCON Port must not be empty!');
+            return false;
+        }
+
         //Call service
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
 
-        const response = await createServer(serverName, serverPort, user, token);
+        const response = await createServer(serverName, serverPort, rconPort, user, token);
 
         if(response === null) {
 
@@ -152,8 +157,8 @@ class MultiStepForm extends Component {
         const param_id = urlParams.get('id');
         const param_step = urlParams.get('step');
 
-        let { id, step, serverName, serverPort, url, hasUrl, script } = this.state;
-        const inputValues = { id, serverName, serverPort, url, hasUrl, script };
+        let { id, step, serverName, serverPort, rconPort, url, hasUrl, script } = this.state;
+        const inputValues = { id, serverName, serverPort, rconPort, url, hasUrl, script };
 
         if(param_id !== null && param_step !== null && !this.state.mounted && (param_step === '2' || param_step === '3')) {
 
