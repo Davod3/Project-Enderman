@@ -6,6 +6,8 @@ data/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+spring.log
+spring-shell.log
 
 ### STS ###
 .apt_generated
