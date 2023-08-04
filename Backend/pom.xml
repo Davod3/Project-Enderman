@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.project</groupId>
 	<artifactId>enderman</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-prod</version>
 	<name>enderman</name>
 	<description>Web application to manage minecraft servers</description>
 	<properties>
