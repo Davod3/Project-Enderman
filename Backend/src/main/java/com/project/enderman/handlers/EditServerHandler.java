@@ -80,19 +80,29 @@ public class EditServerHandler {
 
                 RunServerHandler runServerHandler = new RunServerHandler(serverRepo);
 
-                if(runServerHandler.stop(serverID)){
-                    //Server was running and must be restarted.
-                    Thread.sleep(5000); //Wait 5 seconds to make sure server is fully stopped
+                try {
 
-                    if(!runServerHandler.start(serverID)){ //Might cause issues
-                        throw new ServerStatusException("Server failed to restart but updates are stored!");
+                    boolean result = runServerHandler.stop(serverID);
+
+                    if(result){
+
+                        //Server was running and now is stopped. Restart it.
+                        Thread.sleep(5000); //Wait 5 seconds to make sure server is fully stopped
+
+                        if(!runServerHandler.start(serverID)){ //Might cause issues
+                            throw new ServerStatusException("Server failed to restart but updates are stored!");
+                        }
+
+                        return true;
+
                     }
+
+                } catch (IOException | InterruptedException | ServerStatusException e) {
+
+                    //Server is already stopped, don't restart.
+                    return true;
+
                 }
-
-
-
-                //Server was not running, just return
-                return true;
 
             } else {
                 throw new ServerStatusException("Server is not yet initialized!");
