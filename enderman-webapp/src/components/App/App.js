@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import logo from '../../../src/logo.png';
 import CreateServer from '../CreateServer/CreateServer';
 import ServerProperties from '../ServerProperties/ServerProperties';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function setToken(userToken) {
 
@@ -74,6 +75,8 @@ function App() {
         <Route path='/createserver' element={<CreateServer />}/>
 
         <Route path='/server/:id/properties' element={<ServerProperties />}/>
+
+        <Route path='*' element={<PageNotFound/>}/>
 
       </Routes>
     </BrowserRouter>

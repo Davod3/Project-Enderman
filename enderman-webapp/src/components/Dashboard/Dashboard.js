@@ -49,7 +49,7 @@ class Dashboard extends Component {
 
                 <div id='list-wrapper'>
 
-                    <Icon.PlusCircle size={30} onClick={this.createServer}></Icon.PlusCircle>
+                    <Icon.PlusCircle size={30} onClick={this.createServer} id='addserver-btn'></Icon.PlusCircle>
                     <hr />
                     <div id='server-list-container'>
 

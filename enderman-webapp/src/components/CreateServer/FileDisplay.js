@@ -1,6 +1,4 @@
 import { Component } from 'react';
-import {Button,Container } from 'react-bootstrap';
-import * as Icon from 'react-bootstrap-icons';
 
 class FileDisplay extends Component {
 

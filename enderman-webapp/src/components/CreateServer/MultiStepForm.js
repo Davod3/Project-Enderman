@@ -78,6 +78,11 @@ class MultiStepForm extends Component {
             return false;
         }
 
+        if(/\s/g.test(serverName)){
+            alert('Server Name must not contain any white spaces!');
+            return false;
+        }
+
         if(serverPort===''){
             alert('Server Port must not be empty!');
             return false;
