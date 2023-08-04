@@ -41,3 +41,7 @@
     text-align: center;
 }
 
+#addserver-btn:hover {
+    cursor: pointer;
+}
+
