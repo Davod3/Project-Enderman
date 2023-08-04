@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import * as Icon from 'react-bootstrap-icons';
 
 class PropertyDisplay extends Component {
 
