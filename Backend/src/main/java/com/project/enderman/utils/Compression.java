@@ -60,8 +60,6 @@ public class Compression {
 
         while (zipEntry != null) {
 
-            System.out.println("Unzipping: " + zipEntry.getName());
-
             File newFile = newFile(destDir, zipEntry);
             if (zipEntry.isDirectory()) {
                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
