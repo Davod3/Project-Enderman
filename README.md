@@ -1,35 +1,47 @@
-# Project Enderman (WIP) 
-Consists of a web application that allows the easier deployment and maintenance of minecraft servers on a headless VPS.
+# The Enderman Project 
+This project consists of a web application that allows the easier deployment and maintenance of modded Minecraft servers on linux operating systems.
+At the moment only modpack downloads from curseforge are supported (mostly because i check the domain before starting the download, so more websites could easily be added).
 
 # Requirements
 
-## Works natively on headless ubuntu 20+
+## Backend Server:
 
-## Supports the creation of any kind of minecraft servers (done)
-	
-	-User inputs the server download url (done)
-	-Server is downloaded (done)
-	-User selects the start script (selection done)
+Ubuntu 22.04 LTS Server or Desktop (should work on others but i didn't test it) with Java 17 and Screen installed.
 
-## Supports simple server start/stop procedure (done)
+## Frontend Client:
 
-	-User is presented with all servers, selecting one (done)
-	-User clicks in stop button, server stops (done)
-	-User clicks in start button, server starts (done)
+The build folder contains a react app. Any webserver in any environment should be able to serve it, but i tested it with Node.js 18.17.0 LTS and Serve (https://create-react-app.dev/docs/deployment/) 
 
-## Supports simple server backup procedure (done)
+# Execution
 
-	-User is presented with all servers, selecting one (done)
-	-User clicks in backup button, backup is made. Old backup is deleted. (done)
+This "system" was designed mostly for myself, so the API address is hardcoded into the react app as localhost. That means both the frontend and the backend are supposed to run in the same machine.<br>
 
-## Supports simple server.properties editing procedure (done)
+## To run the backend:
 
-	-User is presented with all servers, selecting one (done)
-	-User clicks in edit button, being shown all .properties fields (done)
-	-User edits what he wants, clicks save (done)
-	-Server is restarted with changes applied (done)
+1 - Move the .jar file to an empty folder<br>
+2 - Run with `java -jar enderman-*.*.*-prod.jar`
 
-## Must allow for manual creation of servers when necessary (done)
-	
-	-User is inserts the name of the folder the server is located in (done)
-	-User creates or selects the start script (done)
+## To run the web client:
+
+1 - Make sure you have Serve installed through NPM<br>
+2 - Run with `serve -s build`
+
+# Features
+
+## Server creation
+
+The user can create a server by inputting the server name, server port, and rcon port. The user can then provide a url to download the server files. Finally, the user can then select the start script for the server.
+
+## Server maintenance
+
+The user can start/stop the server with the click of a button and also create and manage backups. The user can also edit the server properties.
+
+## Remote Console
+
+The web client provides a remote console to execute commands directly on the server.
+
+# Observations
+
+This project was made to be used primarily by me and my friends on the headless VPS that we rent. We use it through an ssh tunnel, which means that we have quite a lot of security provided by a third party. While the api is secured with tokens and the web interface comes with a login system, this authentication systems are not properly tested and probably have a bunch of exploits. That goes to say that both the API and the web client are very insecure. So plz don't use them in insecure environments :)
+
+
